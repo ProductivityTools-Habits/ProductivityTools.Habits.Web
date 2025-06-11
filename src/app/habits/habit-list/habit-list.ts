@@ -12,12 +12,7 @@ import { HabitsService } from '../habits.service';
 export class HabitList {
   habits?: Habit[] | null;
 
-  constructor(private habitsService: HabitsService) { }
-
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.habits = this.habitsService.getHabits();
+  constructor(private habitsService: HabitsService) { 
+     this.habits = this.habitsService.getHabits();
   }
-
 }
