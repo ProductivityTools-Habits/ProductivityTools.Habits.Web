@@ -1,1 +1,22 @@
 <p>habit-execution works!</p>
+<table>
+  <tbody>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Mark as Done</th>
+      <th>Status</th>
+    </tr>
+    <tr *ngFor="let habit of habits">
+      <td>{{habit.id}}</td>
+      <td>{{habit.name}}</td>
+      <td>
+        <input  type="checkbox"
+               [checked]="habit.done" 
+               (click)="finish(habit, $event)" />
+      </td>
+      <td>{{habit.done}}</td>
+    </tr>
+  </tbody>
+</table>
+Tabela end
