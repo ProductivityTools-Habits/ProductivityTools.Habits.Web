@@ -7,7 +7,7 @@ import { Habit } from './../models/habit'
 export class HabitsService {
 
   habits: Habit[] = [
-    { id: 1, name: 'Pompki', done: false },
+    { id: 1, name: 'Pompki',  done: false },
     { id: 2, name: 'Czytanie', done: false }
   ]
   constructor() { }
