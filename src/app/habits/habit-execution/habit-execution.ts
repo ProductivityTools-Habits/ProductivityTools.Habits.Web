@@ -13,10 +13,10 @@ import { Observable, map } from 'rxjs';
   styleUrl: './habit-execution.css'
 })
 export class HabitExecution {
-  habits: Habit[];
+  // habits: Habit[];
 
   constructor(private habitsService: HabitsService) {
-    this.habits = this.habitsService.getHabits() ??[];
+    // this.habits = this.habitsService.getHabits() ??[];
   }
 
   // finish(habit: Habit, event:Event) {
