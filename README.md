@@ -3,3 +3,6 @@ GraphQL
 ```
 ng add apollo-angular
 ```
+
+
+ uri: '<%= endpoint %>',

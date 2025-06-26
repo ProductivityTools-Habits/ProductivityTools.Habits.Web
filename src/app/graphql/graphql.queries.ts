@@ -1,10 +1,9 @@
 import {gql} from 'apollo-angular'
 
-const GET_TODOS = gql`
- query {
-  getPerson {
-    firstName,
-    lastName
+const GET_HABIT = gql`
+query {
+  getHabits {
+    name
   }
 }
 `
@@ -27,4 +26,4 @@ const DELETE_TODO = gql`
   }
   `
 
-export {GET_TODOS, ADD_TODO, DELETE_TODO}
+export {GET_HABIT, ADD_TODO, DELETE_TODO}

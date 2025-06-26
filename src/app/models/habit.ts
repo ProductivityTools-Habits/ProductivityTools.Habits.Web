@@ -1,11 +1,7 @@
 export class Habit {
-    id: number;
     name: string;
-    done:boolean;
 
-    constructor(id: number, date: Date,name: string,done:boolean ) {
-        this.id = id;
+    constructor(name: string) {
         this.name = name;
-        this.done=done;
     }
 }

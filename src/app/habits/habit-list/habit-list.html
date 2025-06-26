@@ -1,13 +1,20 @@
 <p>habit-list works!</p>
 
-<table>
-  <tbody>
-    <tr>
-      <th>name</th>
-    </tr>
-    <tr *ngFor="let habit of habits">
-      <td>{{habit.name}}</td>
-    </tr>
-  </tbody>
-</table>
-Tabela end
+
+<ng-container *ngIf="habits$ | async as habits; else loadingOrError">
+  <table>
+    <tbody>
+      <tr>
+        <th>name</th>
+      </tr>
+      <tr *ngFor="let habit of habits">
+        <td>{{habit.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+<ng-template #loadingOrError>
+  <p class="text-center text-gray-500 py-8">
+    Loading books, or an error occurred...
+  </p>
+</ng-template>
