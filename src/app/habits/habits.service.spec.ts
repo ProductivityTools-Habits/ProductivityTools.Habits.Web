@@ -22,7 +22,7 @@ describe('HabitsService', () => {
   beforeEach(() => {
 
     mockValueChangesSubject = new BehaviorSubject({
-      data: { getHabits: [] },
+      data: { getHabits: [{ name: 'pawel' }] },
       loading: false,
       NetworkStatus: 7
     });
@@ -47,4 +47,10 @@ describe('HabitsService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should return habits', () => {
+    service.getHabitsObservable().subscribe(habits => {
+      expect(habits).toEqual([{ name: 'pawel' }]);
+    });
+  })
 });
