@@ -22,7 +22,7 @@ describe('HabitList', () => {
 
   beforeEach(async () => {
 
-    mockValueHabits = [];
+    mockValueHabits = [{ name: 'pawel' }];
 
     mockHabitsService = {
       getHabitsObservable: (): Observable<Habit[]> => {
@@ -50,23 +50,17 @@ describe('HabitList', () => {
     expect(compiled.querySelector('table')).toBeTruthy();
   })
 
-  it('rows', () => {
-
-    const bannerElemnt =fixture.nativeElement;
-    const p=bannerElemnt.querySelector('p')!;
+  it('has paragraph with title', () => {
+    const bannerElemnt = fixture.nativeElement;
+    const p = bannerElemnt.querySelector('p')!;
     expect(p.textContent).toEqual('habit-list works!')
-
-    const bannerDe:DebugElement = fixture.debugElement
-    const tableDe=bannerDe.query(By.css('.habit-list-table'))
-    const table=tableDe.nativeElement;
-    
-    expect(table.rows.length).toEqual(1);
-  
   })
-});
 
-describe('HabitListValues', () => {
-  it('testing table values', () => {
-    expect(true).toBeTruthy();
+  it('has one row', () => {
+    const bannerDe: DebugElement = fixture.debugElement
+    const tableDe = bannerDe.query(By.css('.habit-list-table'))
+    const table = tableDe.nativeElement;
+
+    expect(table.rows.length).toEqual(2);
   })
 });
