@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input,NgModule } from '@angular/core';
 
-@Component({
+@NgModule({
   selector: 'app-habit-edit',
   imports: [],
   templateUrl: './habit-edit.html',
@@ -8,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class HabitEdit {
 
+  @Input() name: string = 'habit name';
 }
