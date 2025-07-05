@@ -6,3 +6,6 @@ ng add apollo-angular
 
 
  uri: '<%= endpoint %>',
+
+
+ ng serve --open
