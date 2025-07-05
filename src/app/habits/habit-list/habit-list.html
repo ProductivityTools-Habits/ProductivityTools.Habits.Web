@@ -1,5 +1,5 @@
 <p>habit-list works!</p>
-
+<a routerLink="/habit-edit" routerLinkActive="active">Add habit</a>
 
 <ng-container *ngIf="habits$ | async as habits; else loadingOrError">
   <table class="habit-list-table">

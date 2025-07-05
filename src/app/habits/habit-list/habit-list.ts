@@ -3,10 +3,12 @@ import { Component } from '@angular/core';
 import { Habit } from '../../models/habit';
 import { HabitsService } from '../habits.service';
 import { Observable, map } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-habit-list',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule,RouterModule],
   templateUrl: './habit-list.html',
   styleUrl: './habit-list.css'
 })
