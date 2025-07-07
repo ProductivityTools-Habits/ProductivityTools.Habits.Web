@@ -1,4 +1,4 @@
-import {gql} from 'apollo-angular'
+import { gql } from 'apollo-angular'
 
 const GET_HABIT = gql`
 query {
@@ -7,23 +7,30 @@ query {
   }
 }
 `
+const ADD_HABIT = gql`
+mutation addHabit($name: String!) {
+  addHabit(name: $name) {
+    name
+  }
+}
+`
 
 const ADD_TODO = gql`
   mutation addTodo($name: String!, $description: String!) {
-    addTodo(name: $name, description: $description) {
-      id
-      name
-      description
-    }
+  addTodo(name: $name, description: $description) {
+    id
+    name
+    description
   }
+}
 `
 
 const DELETE_TODO = gql`
   mutation deleteTodo($id: Int!) {
-    deleteTodo(id: $id) {
-      id
-    }
+  deleteTodo(id: $id) {
+    id
   }
-  `
+}
+`
 
-export {GET_HABIT, ADD_TODO, DELETE_TODO}
+export {GET_HABIT,ADD_HABIT, ADD_TODO, DELETE_TODO}

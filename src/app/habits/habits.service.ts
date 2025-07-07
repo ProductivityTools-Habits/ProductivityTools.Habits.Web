@@ -23,6 +23,10 @@ export class HabitsService {
     return this.habitQueryRef.valueChanges.pipe(map(result => result.data.getHabits));
   }
 
+  saveHabi(name: string): void {
+    this.habitQueryRef
+  }
+
   // setExecutionStatus(habit: Habit, status: boolean) {
   //   const habitToUpdate = this.habits.find(h => h.id === habit.id);
   //   if (habitToUpdate) {
