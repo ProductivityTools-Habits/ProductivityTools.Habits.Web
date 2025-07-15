@@ -8,10 +8,9 @@ query {
 }
 `
 const ADD_HABIT = gql`
-mutation addHabit($name: String!) {
-  addHabit(name: $name) {
-    name
-  }
+mutation createHabitName($name: String!) {
+  createHabit(
+    CreateHabitInput: {name: $name})
 }
 `
 
@@ -33,4 +32,4 @@ const DELETE_TODO = gql`
 }
 `
 
-export {GET_HABIT,ADD_HABIT, ADD_TODO, DELETE_TODO}
+export { GET_HABIT, ADD_HABIT, ADD_TODO, DELETE_TODO }

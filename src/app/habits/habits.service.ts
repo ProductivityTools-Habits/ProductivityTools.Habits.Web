@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Habit } from './../models/habit'
 
 import { Apollo, QueryRef } from 'apollo-angular';
-import { GET_HABIT } from '../graphql/graphql.queries';
+import { GET_HABIT, ADD_HABIT } from '../graphql/graphql.queries';
 import { Observable, map } from 'rxjs';
 
 @Injectable({
@@ -23,8 +23,15 @@ export class HabitsService {
     return this.habitQueryRef.valueChanges.pipe(map(result => result.data.getHabits));
   }
 
-  saveHabi(name: string): void {
-    this.habitQueryRef
+  saveHabit(name: string): void {
+    this.apollo.mutate({
+      mutation: ADD_HABIT,
+      variables: { name: name },
+      refetchQueries: [{ query: GET_HABIT }]
+    }).subscribe({
+      next: (response) => console.log("Habit saved sucessfully", response),
+      error: (error) => console.error("error saving habit", error)
+    })
   }
 
   // setExecutionStatus(habit: Habit, status: boolean) {
