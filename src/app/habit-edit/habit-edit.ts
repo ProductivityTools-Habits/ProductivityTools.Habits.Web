@@ -20,7 +20,6 @@ export class HabitEdit {
   @Input() name: string = 'habit name';
 
   onSave() {
-    debugger;
     this.habitService.saveHabit(this.name);
   }
 }

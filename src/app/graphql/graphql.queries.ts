@@ -10,7 +10,7 @@ query {
 const ADD_HABIT = gql`
 mutation createHabitName($name: String!) {
   createHabit(
-    CreateHabitInput: {name: $name})
+    createHabitInput: {name: $name})
 }
 `
 
