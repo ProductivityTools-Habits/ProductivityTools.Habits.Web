@@ -2,6 +2,8 @@ import { Component, Input, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HabitsService } from '../habits/habits.service';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -13,7 +15,7 @@ import { HabitsService } from '../habits/habits.service';
 })
 export class HabitEdit {
 
-  constructor(private habitService: HabitsService) {
+  constructor(private habitService: HabitsService, private router: Router) {
 
   }
 
@@ -21,5 +23,6 @@ export class HabitEdit {
 
   onSave() {
     this.habitService.saveHabit(this.name);
+    this.router.navigate(['/habits']);
   }
 }
