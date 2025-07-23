@@ -5,10 +5,14 @@
   <table class="habit-list-table">
     <tbody>
       <tr>
+        <th>id</th>
         <th>name</th>
+        <th>action</th>
       </tr>
       <tr *ngFor="let habit of habits">
+        <td>{{habit.id}}</td>
         <td>{{habit.name}}</td>
+        <td><a [routerLink]="['/habit-edit', habit.id]" routerLinkActive="active">Edit</a></td>
       </tr>
     </tbody>
   </table>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Habit } from './../models/habit'
 
 import { Apollo, QueryRef } from 'apollo-angular';
-import { GET_HABIT, ADD_HABIT } from '../graphql/graphql.queries';
+import { GET_HABITS, GET_HABIT, ADD_HABIT } from '../graphql/graphql.queries';
 import { Observable, map } from 'rxjs';
 
 @Injectable({
@@ -14,13 +14,21 @@ export class HabitsService {
 
   constructor(private apollo: Apollo) {
     this.habitQueryRef = this.apollo.watchQuery<{ getHabits: Habit[] }>({
-      query: GET_HABIT,
+      query: GET_HABITS,
       fetchPolicy: 'cache-and-network'
     });
   }
 
   getHabitsObservable(): Observable<Habit[]> {
     return this.habitQueryRef.valueChanges.pipe(map(result => result.data.getHabits));
+  }
+
+  getHabit(id:Number):Observable<Habit>{
+    return this.apollo.query<{getHabit: Habit}>({
+      query: GET_HABIT,
+      variables: {id}
+    }).pipe(map(result => result.data.getHabit))
+    
   }
 
   saveHabit(name: string): void {

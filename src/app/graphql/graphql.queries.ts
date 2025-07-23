@@ -1,8 +1,17 @@
 import { gql } from 'apollo-angular'
 
 const GET_HABIT = gql`
+query getHabit($id: Int!) {
+  getHabit(id: $id)  {
+    id
+    name
+  }
+}`
+
+const GET_HABITS = gql`
 query {
   getHabits {
+    id
     name
   }
 }
@@ -32,4 +41,4 @@ const DELETE_TODO = gql`
 }
 `
 
-export { GET_HABIT, ADD_HABIT, ADD_TODO, DELETE_TODO }
+export { GET_HABITS, GET_HABIT, ADD_HABIT, ADD_TODO, DELETE_TODO }
