@@ -16,10 +16,9 @@ query {
   }
 }
 `
-const ADD_HABIT = gql`
-mutation createHabitName($name: String!) {
-  createHabit(
-    createHabitInput: {name: $name})
+const SAVE_HABIT = gql`
+mutation SaveHabit($habit: HabitInput!) {
+    saveHabit(habitInput: $habit)
 }
 `
 
@@ -41,4 +40,4 @@ const DELETE_TODO = gql`
 }
 `
 
-export { GET_HABITS, GET_HABIT, ADD_HABIT, ADD_TODO, DELETE_TODO }
+export { GET_HABITS, GET_HABIT, SAVE_HABIT, ADD_TODO, DELETE_TODO }

@@ -27,20 +27,19 @@ export class HabitEdit implements OnInit {
       if (id) {
         this.habitService.getHabit(Number(id)).subscribe({
           next: (habit) => {
-            this.habit = habit;
-            this.name = habit.name;
+            this.habit = { ...habit }
           },
         })
       }
     }
     )
   }
-  habitId: Number = -1;
-  name: string = 'habit name';
+  // habitId: Number = -1;
+  // name: string = 'habit name';
   habit: Habit = new Habit(-1, '')
 
   onSave() {
-    this.habitService.saveHabit(this.name);
+    this.habitService.saveHabit(this.habit);
     this.router.navigate(['/habits']);
   }
 }
