@@ -4,6 +4,7 @@ import { Habit } from './../models/habit'
 import { Apollo, QueryRef } from 'apollo-angular';
 import { GET_HABITS, GET_HABIT, SAVE_HABIT } from '../graphql/graphql.queries';
 import { Observable, map } from 'rxjs';
+import { debug } from 'node:console';
 
 @Injectable({
   providedIn: 'root'
@@ -34,9 +35,11 @@ export class HabitsService {
   saveHabit(habit: Habit): void {
 
     const habitInput={
+      id: habit.id,
       name: habit.name
     }
 
+    debugger;
     this.apollo.mutate({
       mutation: SAVE_HABIT,
       variables: { habit: habitInput },
