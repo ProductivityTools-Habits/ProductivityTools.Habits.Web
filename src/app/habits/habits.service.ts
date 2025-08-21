@@ -32,22 +32,18 @@ export class HabitsService {
     
   }
 
-  saveHabit(habit: Habit): void {
+  saveHabit(habit: Habit): Observable<any> {
 
-    const habitInput={
+    const habitInput = {
       id: habit.id,
       name: habit.name
-    }
+    };
 
-    debugger;
-    this.apollo.mutate({
+    return this.apollo.mutate({
       mutation: SAVE_HABIT,
       variables: { habit: habitInput },
-      refetchQueries: [{ query: GET_HABIT }]
-    }).subscribe({
-      next: (response) => console.log("Habit saved sucessfully", response),
-      error: (error) => console.error("error saving habit", error)
-    })
+      refetchQueries: [{ query: GET_HABITS }]
+    });
   }
 
   // setExecutionStatus(habit: Habit, status: boolean) {

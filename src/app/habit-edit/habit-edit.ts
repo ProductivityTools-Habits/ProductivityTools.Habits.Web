@@ -39,8 +39,15 @@ export class HabitEdit implements OnInit {
   habit: Habit = new Habit(-1, '')
 
   onSave() {
-    console.log("saving habit",this.habit);
-    this.habitService.saveHabit(this.habit);
-    this.router.navigate(['/habits']);
+    console.log("saving habit", this.habit);
+    this.habitService.saveHabit(this.habit).subscribe({
+      next: (response) => {
+        this.router.navigate(['/habits']);
+        console.log("Habit saved sucessfully", response)
+      },
+      error: (error) => console.error("error saving habit", error)
+    })
+
   }
+
 }
