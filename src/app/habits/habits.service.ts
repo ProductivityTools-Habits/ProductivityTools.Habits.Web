@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Habit } from './../models/habit'
 
 import { Apollo, QueryRef } from 'apollo-angular';
-import { GET_HABITS, GET_HABIT, SAVE_HABIT } from '../graphql/graphql.queries';
+import { GET_HABITS, GET_HABIT, SAVE_HABIT, DELETE_HABIT } from '../graphql/graphql.queries';
 import { Observable, map } from 'rxjs';
 import { debug } from 'node:console';
 
@@ -46,6 +46,14 @@ export class HabitsService {
     });
   }
 
+  deleteHabit(habitId: Number):Observable<any>{
+    console.log("deleting habit service", habitId)
+    return this.apollo.mutate({
+      mutation:DELETE_HABIT,
+      variables: {id: habitId},
+      refetchQueries: [{ query: GET_HABITS }]
+    });
+  }
   // setExecutionStatus(habit: Habit, status: boolean) {
   //   const habitToUpdate = this.habits.find(h => h.id === habit.id);
   //   if (habitToUpdate) {

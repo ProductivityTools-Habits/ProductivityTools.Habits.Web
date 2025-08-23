@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-habit-list',
   standalone: true,
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './habit-list.html',
   styleUrl: './habit-list.css'
 })
@@ -19,6 +19,10 @@ export class HabitList {
   constructor(private habitsService: HabitsService) {
     this.habits$ = this.habitsService.getHabitsObservable();
     console.log("habits1")
-    console.log("habits1",this.habits$);
+    console.log("habits1", this.habits$);
+  }
+  public onDelete(habitId: Number) {
+    var result=this.habitsService.deleteHabit(Number(habitId)).subscribe();
+    console.log("deleting habit")
   }
 }

@@ -12,7 +12,14 @@
       <tr *ngFor="let habit of habits">
         <td>{{habit.id}}</td>
         <td>{{habit.name}}</td>
-        <td><a [routerLink]="['/habit-edit', habit.id]" routerLinkActive="active">Edit</a></td>
+        <td>
+          <a [routerLink]="['/habit-edit', habit.id]" routerLinkActive="active"
+            >Edit</a
+          >
+        </td>
+        <td>
+          <button (click)="onDelete(habit.id)">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -22,6 +22,11 @@ mutation SaveHabit($habit: HabitInput!) {
 }
 `
 
+const DELETE_HABIT= gql`
+mutation deleteHabit($id:Int!){
+  deleteHabit(id:$id)
+}`
+
 const ADD_TODO = gql`
   mutation addTodo($name: String!, $description: String!) {
   addTodo(name: $name, description: $description) {
@@ -40,4 +45,4 @@ const DELETE_TODO = gql`
 }
 `
 
-export { GET_HABITS, GET_HABIT, SAVE_HABIT, ADD_TODO, DELETE_TODO }
+export { GET_HABITS, GET_HABIT, SAVE_HABIT,DELETE_HABIT, ADD_TODO, DELETE_TODO }
