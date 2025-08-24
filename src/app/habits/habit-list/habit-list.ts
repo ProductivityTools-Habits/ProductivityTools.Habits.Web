@@ -17,7 +17,7 @@ export class HabitList {
   habits$: Observable<Habit[]> | undefined;
 
   constructor(private habitsService: HabitsService) {
-    this.habits$ = this.habitsService.getHabitsObservable();
+    this.habits$ = this.habitsService.getHabitsObservable().pipe(map(habits => [...habits].sort((a, b) => a.id - b.id)));
     console.log("habits1")
     console.log("habits1", this.habits$);
   }
