@@ -16,7 +16,7 @@ export const routes: Routes = [
 
     {
         path: 'execution',
-        loadComponent: () => import('./habits/habit-execution/habit-execution').then(m => m.HabitExecution)
+        loadComponent: () => import('./executions/execution-list/execution-list').then(m => m.ExecutionList)
     },
     { path: '', redirectTo: '/habits', pathMatch: 'full' }
 ];
