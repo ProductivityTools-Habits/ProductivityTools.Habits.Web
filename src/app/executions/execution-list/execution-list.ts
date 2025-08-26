@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Execution } from '../../models/execution';
+import { ExecutionService } from '../executions.service';
 
 @Component({
   selector: 'app-execution-list',
@@ -7,5 +10,10 @@ import { Component } from '@angular/core';
   styleUrl: './execution-list.css'
 })
 export class ExecutionList {
+  
+  executions$: Observable<Execution[]> | undefined;
 
+   constructor(private executionService: ExecutionService) {
+  //   //this.executions$ = this.executionService.getExecutionsObservable();
+   }
 }
