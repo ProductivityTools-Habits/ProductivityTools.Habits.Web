@@ -1,4 +1,4 @@
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Habit } from '../../models/habit';
 import { HabitsService } from '../habits.service';
@@ -18,7 +18,6 @@ export class HabitList {
 
   constructor(private habitsService: HabitsService) {
     this.habits$ = this.habitsService.getHabitsObservable().pipe(map(habits => [...habits].sort((a, b) => a.id - b.id)));
-    console.log("habits1")
     console.log("habits1", this.habits$);
   }
   public onDelete(habitId: Number) {

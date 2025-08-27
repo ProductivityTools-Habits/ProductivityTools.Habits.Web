@@ -1,1 +1,6 @@
 <p>execution-list works!</p>
+@if (executions$ |async; as executions) {
+<p>executions returned</p>
+} @else {
+<p>no executions returned</p>
+}
