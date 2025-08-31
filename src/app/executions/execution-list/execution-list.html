@@ -1,7 +1,7 @@
 <p>execution-list works!</p>
-@if (executionView$ |async; as executionView) {
-    @for (habit of executionView; track habit.id){
-        <span>{{habit.name}}</span>
+@if (executionView  && executionView.length>0) {
+    @for (item of executionView; track item.id){
+        <p>{{item.name}}</p>
     }
 <p>executions returned</p>
 } @else {
