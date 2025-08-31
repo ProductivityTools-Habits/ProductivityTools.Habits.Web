@@ -1,5 +1,8 @@
 <p>execution-list works!</p>
-@if (executions$ |async; as executions) {
+@if (executionView$ |async; as executionView) {
+    @for (habit of executionView; track habit.id){
+        <span>{{habit.name}}</span>
+    }
 <p>executions returned</p>
 } @else {
 <p>no executions returned</p>
