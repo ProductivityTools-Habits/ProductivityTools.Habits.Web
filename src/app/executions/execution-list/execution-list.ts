@@ -5,10 +5,11 @@ import { Execution } from '../../models/execution';
 import { ExecutionService } from '../executions.service';
 import { HabitsService } from '../../habits/habits.service';
 import { Habit } from '../../models/habit';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-execution-list',
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './execution-list.html',
   styleUrl: './execution-list.css'
 })
@@ -16,6 +17,8 @@ export class ExecutionList implements OnInit, OnDestroy {
 
   executionView: any[] = []
   private subscription: Subscription = new Subscription();
+  isNgModelChecked:boolean=false;
+
 
   constructor(private executionService: ExecutionService, private habitsService: HabitsService) { }
   ngOnInit(): void {
