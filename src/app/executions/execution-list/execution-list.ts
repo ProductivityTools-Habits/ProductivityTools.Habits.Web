@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-execution-list',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './execution-list.html',
   styleUrl: './execution-list.css'
 })
@@ -17,7 +17,7 @@ export class ExecutionList implements OnInit, OnDestroy {
 
   executionView: any[] = []
   private subscription: Subscription = new Subscription();
-  isNgModelChecked:boolean=false;
+  isNgModelChecked: boolean = false;
 
 
   constructor(private executionService: ExecutionService, private habitsService: HabitsService) { }
@@ -32,8 +32,8 @@ export class ExecutionList implements OnInit, OnDestroy {
 
 
     this.subscription.add(
-      combineLatest([habits$,executions$]).pipe(
-        map(([habits,executions ]) => {
+      combineLatest([habits$, executions$]).pipe(
+        map(([habits, executions]) => {
           if (!habits || !executions) {
             return [];
           }
@@ -50,6 +50,10 @@ export class ExecutionList implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  public onComplete(id: number): void {
+    console.log(id);
   }
 
 }

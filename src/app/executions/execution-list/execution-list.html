@@ -5,6 +5,9 @@ track item.id){
   Name: {{item.name}} Status: {{item.status}}
   <input type="checkbox" id="'item-' +item.id" 
   [(ngModel)]="item.status" />
+  <input type="button" value="Complete" (click)="onComplete(item.id)"  />
+  <input type="button" value="Skip"  />
+  <input type="button" value="Reset"  />
 </p>
 }
 <p>executions returned</p>
