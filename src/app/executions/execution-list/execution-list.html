@@ -1,14 +1,18 @@
 <p>execution-list works!</p>
-@if (executionView  && executionView.length>0) {
-    @for (item of executionView; track item.id){
-        <p>Name: {{item.name}} Status: {{item.status}} <input type="checkbox" [checked]="item.status === 'Done'">  </p>
-    }
+@if (executionView && executionView.length>0) { @for (item of executionView;
+track item.id){
+<p>
+  Name: {{item.name}} Status: {{item.status}}
+  <input type="checkbox" id="'item-' +item.id" 
+  [(ngModel)]="item.status" />
+</p>
+}
 <p>executions returned</p>
 } @else {
 <p>no executions returned</p>
 }
 
 <p>
-    <input type="checkbox" [(ngModel)]="isNgModelChecked" /><span>ngModel</span>
-    Model binding: {{isNgModelChecked ? 'checked' : 'not checked'}}
+  <input type="checkbox" [(ngModel)]="isNgModelChecked" /><span>ngModel</span>
+  Model binding: {{isNgModelChecked ? 'checked' : 'not checked'}}
 </p>
