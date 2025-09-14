@@ -53,7 +53,9 @@ export class ExecutionList implements OnInit, OnDestroy {
   }
 
   public onComplete(id: number): void {
+    var r= this.executionService.onComplete(Number(id)).subscribe();
     console.log(id);
+    console.log(r);
   }
 
 }
