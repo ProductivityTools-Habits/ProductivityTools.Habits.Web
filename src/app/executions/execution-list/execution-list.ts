@@ -39,7 +39,7 @@ export class ExecutionList implements OnInit, OnDestroy {
           }
           return habits.map(habit => {
             const execution = executions.find(execution => habit.id === execution.habit.id);
-            return { ...habit, executionStatus: execution?.status };
+            return { ...habit, executionId:execution?.id, executionStatus: execution?.status };
           });
         })
       ).subscribe(data => {
