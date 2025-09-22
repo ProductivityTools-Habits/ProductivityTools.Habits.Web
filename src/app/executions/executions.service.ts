@@ -21,11 +21,11 @@ export class ExecutionService{
         return this.executionQueryRef.valueChanges.pipe(map(result => result.data.getExecutions));
     }
 
-    onComplete(executionid:Number):Observable<any>{
+    onComplete(executionid:Number, date: string):Observable<any>{
         console.log("completing", executionid)
         return this.apollo.mutate({
             mutation:COMPLETE_EXECUTION,
-            variables: {id: executionid},
+            variables: {id: executionid, date: date},
             refetchQueries: [{ query: GET_EXECUTIONS }]
           });
 

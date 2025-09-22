@@ -42,8 +42,8 @@ query {
 `
 
 const COMPLETE_EXECUTION = gql`
-mutation completeExecution($id:Int!){
-  completeExecution(id:$id)
+mutation completeExecution($id:Int!, $date: String!){
+  completeExecution(id:$id, date:$date)
 }`
 
 const ADD_TODO = gql`

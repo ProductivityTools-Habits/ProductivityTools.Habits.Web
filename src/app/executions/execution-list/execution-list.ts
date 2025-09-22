@@ -39,7 +39,7 @@ export class ExecutionList implements OnInit, OnDestroy {
           }
           return habits.map(habit => {
             const execution = executions.find(execution => habit.id === execution.habit.id);
-            return { ...habit, executionId:execution?.id, executionStatus: execution?.status };
+            return { ...habit, executionId: execution?.id, executionStatus: execution?.status };
           });
         })
       ).subscribe(data => {
@@ -52,8 +52,29 @@ export class ExecutionList implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  private formatDateToYYYYMMDD(date: Date): string {
+    // Get the year
+    const year = date.getFullYear();
+
+    // Get the month (0-11, so add 1) and pad with a leading zero if needed
+    // Example: 9 becomes "09"
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+
+    // Get the day of the month and pad with a leading zero if needed
+    // Example: 9 becomes "09"
+    const day = String(date.getDate()).padStart(2, '0');
+
+    // Combine them with hyphens
+    return `${year}-${month}-${day}`;
+  }
+
+  private getDate() {
+    var r = this.formatDateToYYYYMMDD(new Date());
+    return r;
+  }
+
   public onComplete(id: number): void {
-    var r= this.executionService.onComplete(Number(id)).subscribe();
+    var r = this.executionService.onComplete(Number(id), this.getDate()).subscribe();
     console.log(id);
     console.log(r);
   }
