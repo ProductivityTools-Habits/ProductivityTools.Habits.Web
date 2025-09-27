@@ -29,16 +29,18 @@ export class ExecutionList implements OnInit, OnDestroy {
     //   console.log("items", items)
     // })
     // this.subscription.add(sub);
-
+    const date: string =this.getDate();
 
     this.subscription.add(
+      
       combineLatest([habits$, executions$]).pipe(
         map(([habits, executions]) => {
           if (!habits || !executions) {
             return [];
           }
           return habits.map(habit => {
-            const execution = executions.find(execution => habit.id === execution.habit.id);
+            console.log(executions);
+                        const execution = executions.find(execution => habit.id === execution.habit.id && this.formatDateToYYYYMMDD(new Date(execution.date)) === date);
             return { ...habit, executionId: execution?.id, executionStatus: execution?.status };
           });
         })
@@ -54,6 +56,7 @@ export class ExecutionList implements OnInit, OnDestroy {
 
   private formatDateToYYYYMMDD(date: Date): string {
     // Get the year
+    console.log("date", date)
     const year = date.getFullYear();
 
     // Get the month (0-11, so add 1) and pad with a leading zero if needed

@@ -2,7 +2,7 @@
 @if (executionView && executionView.length>0) { @for (item of executionView;
 track item.id){
 <p>
-  Name: {{item.name}} Status: {{item.status}}
+  Name: {{item.name}} Status: {{item.executionStatus}}
   HabitId: {{item.id}}, ExecutionId: {{item.executionId}}
   <input type="checkbox" id="'habit-{{+item.id}}" [(ngModel)]="item.status" />
   <input type="button" value="Complete" (click)="onComplete(item.id)" />
