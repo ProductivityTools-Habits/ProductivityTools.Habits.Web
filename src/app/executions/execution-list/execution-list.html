@@ -7,8 +7,8 @@ track item.id){
   <input type="checkbox" id="'habit-{{+item.id}}" [(ngModel)]="item.status" />
   <input type="button" value="Complete" (click)="onComplete(item.id)" />
   <input type="button" value="Skip" (click)="onSkip(item.id)" />
-  <input type="button" value="Reset" />
-  <input type="button" value="Failed" />
+  <input type="button" value="Reset" (click)="onReset(item.id)" />
+  <input type="button" value="Failed" (click)="onFailed(item.id)" />
 </p>
 }
 <p>executions returned</p>

@@ -83,4 +83,14 @@ export class ExecutionList implements OnInit, OnDestroy {
     var r = this.executionService.onSkip(Number(id), this.getDate()).subscribe();
     console.log(id);
   }
+
+  public onReset(id: number): void {
+    var r = this.executionService.onReset(Number(id), this.getDate()).subscribe();
+    console.log(id);
+  }
+
+  public onFailed(id: number): void {
+    var r = this.executionService.onFailed(Number(id), this.getDate()).subscribe();
+    console.log(id);
+  }
 }

@@ -1,6 +1,6 @@
 import { Apollo, QueryRef } from "apollo-angular";
 import { Execution } from "../models/execution";
-import { GET_EXECUTIONS, COMPLETE_EXECUTION, SKIP_EXECUTION } from "../graphql/graphql.queries";
+import { GET_EXECUTIONS, COMPLETE_EXECUTION, SKIP_EXECUTION, RESET_EXECUTION, FAIL_EXECUTION } from "../graphql/graphql.queries";
 import { map, Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 
@@ -33,6 +33,24 @@ export class ExecutionService {
         console.log("skipping", executionid)
         return this.apollo.mutate({
             mutation: SKIP_EXECUTION,
+            variables: { id: executionid, date: date },
+            refetchQueries: [{ query: GET_EXECUTIONS }]
+        })
+    }
+
+        onReset(executionid: Number, date: string): Observable<any> {
+        console.log("resseting", executionid)
+        return this.apollo.mutate({
+            mutation: RESET_EXECUTION,
+            variables: { id: executionid, date: date },
+            refetchQueries: [{ query: GET_EXECUTIONS }]
+        })
+    }
+
+        onFailed(executionid: Number, date: string): Observable<any> {
+        console.log("FAILING", executionid)
+        return this.apollo.mutate({
+            mutation: FAIL_EXECUTION,
             variables: { id: executionid, date: date },
             refetchQueries: [{ query: GET_EXECUTIONS }]
         })

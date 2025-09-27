@@ -51,6 +51,14 @@ mutation skipExecution($id:Int!, $date: String!){
   skipExecution(id:$id, date:$date)
 }`
 
+const RESET_EXECUTION = gql`
+mutation resetExecution($id:Int!, $date: String!){
+  resetExecution(id:$id, date:$date)
+}`
+const FAIL_EXECUTION = gql`
+mutation failExecution($id:Int!, $date: String!){
+  failExecution(id:$id, date:$date)
+}`
 
 const ADD_TODO = gql`
   mutation addTodo($name: String!, $description: String!) {
@@ -72,6 +80,6 @@ const DELETE_TODO = gql`
 
 export {
   GET_HABITS, GET_HABIT, SAVE_HABIT, DELETE_HABIT,
-  GET_EXECUTIONS,COMPLETE_EXECUTION,SKIP_EXECUTION,
+  GET_EXECUTIONS, COMPLETE_EXECUTION, SKIP_EXECUTION, RESET_EXECUTION, FAIL_EXECUTION,
   ADD_TODO, DELETE_TODO
 }
