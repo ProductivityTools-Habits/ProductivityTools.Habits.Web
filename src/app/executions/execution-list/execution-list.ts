@@ -18,7 +18,7 @@ export class ExecutionList implements OnInit, OnDestroy {
   executionView: any[] = []
   private subscription: Subscription = new Subscription();
   isNgModelChecked: boolean = false;
-  date: string;
+  date: Date;
 
 
   constructor(private executionService: ExecutionService, private habitsService: HabitsService) {
@@ -46,7 +46,7 @@ export class ExecutionList implements OnInit, OnDestroy {
           }
           return habits.map(habit => {
             console.log(executions);
-            const execution = executions.find(execution => habit.id === execution.habit.id && this.formatDateToYYYYMMDD(new Date(execution.date)) === this.date);
+            const execution = executions.find(execution => habit.id === execution.habit.id && this.formatDateToYYYYMMDD(new Date(execution.date)) === this.getDateFormatted());
             return { ...habit, executionId: execution?.id, executionStatus: execution?.status };
           });
         })
@@ -77,29 +77,48 @@ export class ExecutionList implements OnInit, OnDestroy {
     return `${year}-${month}-${day}`;
   }
 
-  private getDate() {
-    var r = this.formatDateToYYYYMMDD(new Date());
+  private getDateFormatted(): string {
+    var r= this.formatDateToYYYYMMDD(this.date);
     return r;
   }
 
+
+
+  private getDate(date?: Date): Date {
+    const r: Date = date ? date : new Date();
+    //var r = this.formatDateToYYYYMMDD(dateToFromat);
+    return r;
+  }
+
+  public previousDate() {
+    debugger;
+    this.date.setDate(this.date.getDate() - 1);
+    console.log("Date:",this.date)
+  }
+
+  public nextDate() {
+    this.date.setDate(this.date.getDate() + 1);
+
+  }
+
   public onComplete(id: number): void {
-    var r = this.executionService.onComplete(Number(id), this.date).subscribe();
+    var r = this.executionService.onComplete(Number(id), this.getDateFormatted()).subscribe();
     console.log(id);
     console.log(r);
   }
 
   public onSkip(id: number): void {
-    var r = this.executionService.onSkip(Number(id), this.date).subscribe();
+    var r = this.executionService.onSkip(Number(id), this.getDateFormatted()).subscribe();
     console.log(id);
   }
 
   public onReset(id: number): void {
-    var r = this.executionService.onReset(Number(id), this.date).subscribe();
+    var r = this.executionService.onReset(Number(id), this.getDateFormatted()).subscribe();
     console.log(id);
   }
 
   public onFailed(id: number): void {
-    var r = this.executionService.onFailed(Number(id), this.date).subscribe();
+    var r = this.executionService.onFailed(Number(id), this.getDateFormatted()).subscribe();
     console.log(id);
   }
 }
