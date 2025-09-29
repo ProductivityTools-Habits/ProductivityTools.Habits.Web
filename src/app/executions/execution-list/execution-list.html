@@ -1,4 +1,10 @@
 <p>execution-list works!</p>
+
+<p>
+  <input type="button" value="<<" />
+  <input type="date" [(ngModel)]="date" (ngModelChange)="loadData()" />
+  <input type="button" value=">>" /></p>
+<p>date:{{date}}</p>
 @if (executionView && executionView.length>0) { @for (item of executionView;
 track item.id){
 <p>
