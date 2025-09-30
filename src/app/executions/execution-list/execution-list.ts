@@ -18,11 +18,11 @@ export class ExecutionList implements OnInit, OnDestroy {
   executionView: any[] = []
   private subscription: Subscription = new Subscription();
   isNgModelChecked: boolean = false;
-  date: Date;
+  date: string;
 
 
   constructor(private executionService: ExecutionService, private habitsService: HabitsService) {
-    this.date = this.getDate();
+    this.date = this.formatDateToYYYYMMDD(new Date());
   }
   ngOnInit(): void {
     this.loadData();
@@ -46,7 +46,7 @@ export class ExecutionList implements OnInit, OnDestroy {
           }
           return habits.map(habit => {
             console.log(executions);
-            const execution = executions.find(execution => habit.id === execution.habit.id && this.formatDateToYYYYMMDD(new Date(execution.date)) === this.getDateFormatted());
+            const execution = executions.find(execution => habit.id === execution.habit.id && this.formatDateToYYYYMMDD(new Date(execution.date)) === this.date);
             return { ...habit, executionId: execution?.id, executionStatus: execution?.status };
           });
         })
@@ -77,48 +77,46 @@ export class ExecutionList implements OnInit, OnDestroy {
     return `${year}-${month}-${day}`;
   }
 
-  private getDateFormatted(): string {
-    var r= this.formatDateToYYYYMMDD(this.date);
-    return r;
-  }
-
-
-
-  private getDate(date?: Date): Date {
-    const r: Date = date ? date : new Date();
+  private getDateinDateFormat(): Date {
+    const r: Date = new Date(this.date)
     //var r = this.formatDateToYYYYMMDD(dateToFromat);
     return r;
   }
 
   public previousDate() {
     debugger;
-    this.date.setDate(this.date.getDate() - 1);
-    console.log("Date:",this.date)
+    var selectedDate=this.getDateinDateFormat();
+    this.date = this.formatDateToYYYYMMDD(new Date(selectedDate.setDate(selectedDate.getDate()-1)));
+    this.loadData();
+    console.log("Date:", this.date)
   }
 
   public nextDate() {
-    this.date.setDate(this.date.getDate() + 1);
+    var selectedDate=this.getDateinDateFormat();
+     this.date = this.formatDateToYYYYMMDD(new Date(selectedDate.setDate(selectedDate.getDate()+1)));
+     this.loadData();
+    console.log("Date:", this.date)
 
   }
 
   public onComplete(id: number): void {
-    var r = this.executionService.onComplete(Number(id), this.getDateFormatted()).subscribe();
+    var r = this.executionService.onComplete(Number(id), this.date).subscribe();
     console.log(id);
     console.log(r);
   }
 
   public onSkip(id: number): void {
-    var r = this.executionService.onSkip(Number(id), this.getDateFormatted()).subscribe();
+    var r = this.executionService.onSkip(Number(id), this.date).subscribe();
     console.log(id);
   }
 
   public onReset(id: number): void {
-    var r = this.executionService.onReset(Number(id), this.getDateFormatted()).subscribe();
+    var r = this.executionService.onReset(Number(id), this.date).subscribe();
     console.log(id);
   }
 
   public onFailed(id: number): void {
-    var r = this.executionService.onFailed(Number(id), this.getDateFormatted()).subscribe();
+    var r = this.executionService.onFailed(Number(id), this.date).subscribe();
     console.log(id);
   }
 }
