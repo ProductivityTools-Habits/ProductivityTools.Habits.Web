@@ -5,6 +5,24 @@
   <input type="date" [(ngModel)]="date" (ngModelChange)="loadData()" />
   <input type="button" value=">>" (click)="nextDate()" /></p>
 <p>date:{{date}}</p>
+
+@if (executionView && executionView.length>0) { @for (item of executionView;
+track item.id){
+<p>
+  <b>{{item.name}}</b>: <span class="{{item.executionStatus}}">{{item.executionStatus}}</span>
+  <input type="button" value="Complete" (click)="onComplete(item.id)" />
+  <input type="button" value="Skip" (click)="onSkip(item.id)" />
+  <input type="button" value="Reset" (click)="onReset(item.id)" />
+  <input type="button" value="Failed" (click)="onFailed(item.id)" />
+</p>
+}
+<p>executions returned</p>
+} @else {
+<p>no executions returned</p>
+}
+
+
+<hr/>
 @if (executionView && executionView.length>0) { @for (item of executionView;
 track item.id){
 <p>

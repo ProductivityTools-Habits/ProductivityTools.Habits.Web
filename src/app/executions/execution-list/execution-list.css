@@ -1,0 +1,12 @@
+span.Completed{
+    color: green;
+}
+
+span.Skipped{
+    color: blue;
+}
+
+span.Failed{
+    color: red;
+}
+
