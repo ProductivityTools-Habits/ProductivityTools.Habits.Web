@@ -13,10 +13,13 @@ export const routes: Routes = [
         path: 'habit-edit',
         loadComponent: () => import('./habit-edit/habit-edit').then(m => m.HabitEdit)
     },
-
     {
         path: 'execution',
         loadComponent: () => import('./executions/execution-list/execution-list').then(m => m.ExecutionList)
+    },
+    {
+        path: 'execution-history',
+        loadComponent: () => import('./executions/execution-history/execution-history').then(m => m.ExecutionHistory)
     },
     { path: '', redirectTo: '/habits', pathMatch: 'full' }
 ];
