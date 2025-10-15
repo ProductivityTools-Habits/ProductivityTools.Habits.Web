@@ -12,3 +12,12 @@ ng add apollo-angular
 
 
  https://www.apollographql.com/tutorials/intro-typescript/14-mutations
+
+
+
+ # Firebase
+
+ ```
+ npm install -g firebase-tools
+ firebase init
+ ```
