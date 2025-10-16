@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build && npm run postbuild",
+    "postbuild": "node -e \"require('fs').copyFileSync('dist/ProductivityTools.Habits.Web/browser/habits/index.html', 'dist/ProductivityTools.Habits.Web/browser/index.html')\"",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:ProductivityTools.Habits.Web": "node dist/ProductivityTools.Habits.Web/server/server.mjs"
