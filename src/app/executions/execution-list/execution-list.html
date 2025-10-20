@@ -9,7 +9,7 @@
 @if (executionView && executionView.length>0) { @for (item of executionView;
 track item.id){
 <p>
-  <b>{{item.name}}</b>: <span class="{{item.executionStatus}}">{{item.executionStatus}}</span>
+  <b>{{item.name}}</b>: <span class="{{item.executionStatus}}">{{item.executionStatus}}</span><br/>
   <input type="button" value="Complete" (click)="onComplete(item.id)" />
   <input type="button" value="Skip" (click)="onSkip(item.id)" />
   <input type="button" value="Reset" (click)="onReset(item.id)" />
