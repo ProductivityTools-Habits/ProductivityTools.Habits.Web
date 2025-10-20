@@ -19,6 +19,7 @@ export class ExecutionList implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   isNgModelChecked: boolean = false;
   date: string;
+  showAdvancedPanel: boolean = false;
 
 
   constructor(private executionService: ExecutionService, private habitsService: HabitsService) {

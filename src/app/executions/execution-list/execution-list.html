@@ -23,24 +23,33 @@ track item.id){
 
 
 <hr/>
-@if (executionView && executionView.length>0) { @for (item of executionView;
-track item.id){
 <p>
-  Name: {{item.name}} Status: {{item.executionStatus}}
-  HabitId: {{item.id}}, ExecutionId: {{item.executionId}}
-  <input type="checkbox" id="'habit-{{+item.id}}" [(ngModel)]="item.status" />
-  <input type="button" value="Complete" (click)="onComplete(item.id)" />
-  <input type="button" value="Skip" (click)="onSkip(item.id)" />
-  <input type="button" value="Reset" (click)="onReset(item.id)" />
-  <input type="button" value="Failed" (click)="onFailed(item.id)" />
+  <input type="button" value="{{showAdvancedPanel ? 'Hide' : 'Show'}} Advanced Panel" (click)="showAdvancedPanel = !showAdvancedPanel" />
 </p>
-}
-<p>executions returned</p>
-} @else {
-<p>no executions returned</p>
-}
 
-<p>
-  <input type="checkbox" [(ngModel)]="isNgModelChecked" /><span>ngModel</span>
-  Model binding: {{isNgModelChecked ? 'checked' : 'not checked'}}
-</p>
+@if (showAdvancedPanel) {
+<div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0; background-color: #f9f9f9;">
+  <h3>Advanced Panel</h3>
+  @if (executionView && executionView.length>0) { @for (item of executionView;
+  track item.id){
+  <p>
+    Name: {{item.name}} Status: {{item.executionStatus}}
+    HabitId: {{item.id}}, ExecutionId: {{item.executionId}}
+    <input type="checkbox" id="'habit-{{+item.id}}" [(ngModel)]="item.status" />
+    <input type="button" value="Complete" (click)="onComplete(item.id)" />
+    <input type="button" value="Skip" (click)="onSkip(item.id)" />
+    <input type="button" value="Reset" (click)="onReset(item.id)" />
+    <input type="button" value="Failed" (click)="onFailed(item.id)" />
+  </p>
+  }
+  <p>executions returned</p>
+  } @else {
+  <p>no executions returned</p>
+  }
+
+  <p>
+    <input type="checkbox" [(ngModel)]="isNgModelChecked" /><span>ngModel</span>
+    Model binding: {{isNgModelChecked ? 'checked' : 'not checked'}}
+  </p>
+</div>
+}
