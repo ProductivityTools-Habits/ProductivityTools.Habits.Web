@@ -21,5 +21,5 @@ export const routes: Routes = [
         path: 'execution-history',
         loadComponent: () => import('./executions/execution-history/execution-history').then(m => m.ExecutionHistory)
     },
-    { path: '', redirectTo: '/habits', pathMatch: 'full' }
+    { path: '', redirectTo: '/execution', pathMatch: 'full' }
 ];
