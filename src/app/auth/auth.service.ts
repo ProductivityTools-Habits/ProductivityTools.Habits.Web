@@ -7,7 +7,8 @@ import {
   signOut, 
   GoogleAuthProvider, 
   User,
-  onAuthStateChanged
+  onAuthStateChanged,
+  getIdToken
 } from 'firebase/auth';
 import { firebaseConfig } from '../firebase.config';
 import { Router } from '@angular/router';
@@ -70,6 +71,21 @@ export class AuthService {
   // Check if user is authenticated
   isLoggedIn(): boolean {
     return this.isAuthenticated();
+  }
+
+  // Get Firebase ID token for API authentication
+  async getIdToken(): Promise<string | null> {
+    try {
+      const user = this.auth.currentUser;
+      if (user) {
+        const token = await getIdToken(user);
+        return token;
+      }
+      return null;
+    } catch (error) {
+      console.error('Error getting ID token:', error);
+      return null;
+    }
   }
 }
 
