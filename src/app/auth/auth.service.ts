@@ -1,11 +1,11 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { 
-  Auth, 
-  getAuth, 
-  signInWithPopup, 
-  signOut, 
-  GoogleAuthProvider, 
+import {
+  Auth,
+  getAuth,
+  signInWithPopup,
+  signOut,
+  GoogleAuthProvider,
   User,
   onAuthStateChanged,
   getIdToken
@@ -20,10 +20,10 @@ export class AuthService {
   private router = inject(Router);
   private auth: Auth;
   private googleProvider: GoogleAuthProvider;
-  
+
   // Signal to track current user
   currentUser = signal<User | null>(null);
-  isAuthenticated = signal<boolean>(false);
+  isAuthenticated = signal<boolean>(!!localStorage.getItem('idToken'));
 
   constructor() {
     // Initialize Firebase
@@ -32,10 +32,17 @@ export class AuthService {
     this.googleProvider = new GoogleAuthProvider();
 
     // Listen to auth state changes
-    onAuthStateChanged(this.auth, (user) => {
+    onAuthStateChanged(this.auth, async (user) => {
       this.currentUser.set(user);
       this.isAuthenticated.set(!!user);
       console.log('Auth state changed:', user ? user.email : 'No user');
+
+      if (user) {
+        const token = await user.getIdToken();
+        localStorage.setItem('idToken', token);
+      } else {
+        localStorage.removeItem('idToken');
+      }
     });
   }
 
@@ -55,6 +62,7 @@ export class AuthService {
   async signOut(): Promise<void> {
     try {
       await signOut(this.auth);
+      localStorage.removeItem('idToken');
       console.log('Successfully signed out');
       this.router.navigate(['/login']);
     } catch (error: any) {
