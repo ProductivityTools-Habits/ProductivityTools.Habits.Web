@@ -1,4 +1,5 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, signal, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { initializeApp } from 'firebase/app';
 import {
   Auth,
@@ -18,14 +19,20 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private router = inject(Router);
+  private platformId = inject(PLATFORM_ID);
   private auth: Auth;
   private googleProvider: GoogleAuthProvider;
 
   // Signal to track current user
   currentUser = signal<User | null>(null);
-  isAuthenticated = signal<boolean>(!!localStorage.getItem('idToken'));
+  isAuthenticated = signal<boolean>(false);
 
   constructor() {
+    // Initialize isAuthenticated based on localStorage if in browser
+    if (this.isBrowser()) {
+      this.isAuthenticated.set(!!localStorage.getItem('idToken'));
+    }
+
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     this.auth = getAuth(app);
@@ -37,13 +44,19 @@ export class AuthService {
       this.isAuthenticated.set(!!user);
       console.log('Auth state changed:', user ? user.email : 'No user');
 
-      if (user) {
-        const token = await user.getIdToken();
-        localStorage.setItem('idToken', token);
-      } else {
-        localStorage.removeItem('idToken');
+      if (this.isBrowser()) {
+        if (user) {
+          const token = await user.getIdToken();
+          localStorage.setItem('idToken', token);
+        } else {
+          localStorage.removeItem('idToken');
+        }
       }
     });
+  }
+
+  private isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
   }
 
   // Sign in with Google
@@ -62,7 +75,9 @@ export class AuthService {
   async signOut(): Promise<void> {
     try {
       await signOut(this.auth);
-      localStorage.removeItem('idToken');
+      if (this.isBrowser()) {
+        localStorage.removeItem('idToken');
+      }
       console.log('Successfully signed out');
       this.router.navigate(['/login']);
     } catch (error: any) {
@@ -96,4 +111,3 @@ export class AuthService {
     }
   }
 }
-
