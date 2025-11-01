@@ -36,7 +36,7 @@ export class HabitEdit implements OnInit {
   }
   // habitId: Number = -1;
   // name: string = 'habit name';
-  habit: Habit = new Habit(-1, '')
+  habit: Habit = new Habit(-1, '', '')
 
   onSave() {
     console.log("saving habit", this.habit);

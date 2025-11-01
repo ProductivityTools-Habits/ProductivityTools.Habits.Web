@@ -2,31 +2,30 @@
 <a routerLink="/habit-edit" routerLinkActive="active">Add habit</a>
 
 @if (habits$ | async; as habits) {
-  <table class="habit-list-table">
-    <tbody>
-      <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>action</th>
-      </tr>
-      @for (habit of habits; track habit.id) {
-        <tr>
-          <td>{{habit.id}}</td>
-          <td>{{habit.name}}</td>
-          <td>
-            <a [routerLink]="['/habit-edit', habit.id]" routerLinkActive="active"
-              >Edit</a
-            >
-          </td>
-          <td>
-            <button (click)="onDelete(habit.id)">Delete</button>
-          </td>
-        </tr>
-      }
-    </tbody>
-  </table>
+<table class="habit-list-table">
+  <tbody>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>action</th>
+    </tr>
+    @for (habit of habits; track habit.id) {
+    <tr>
+      <td>{{habit.id}}</td>
+      <td>{{habit.name}}</td>
+      <td>{{habit.shortName}}</td>
+      <td>
+        <a [routerLink]="['/habit-edit', habit.id]" routerLinkActive="active">Edit</a>
+      </td>
+      <td>
+        <button (click)="onDelete(habit.id)">Delete</button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
 } @else {
-  <p class="text-center text-gray-500 py-8">
-    Loading books, or an error occurred...
-  </p>
+<p class="text-center text-gray-500 py-8">
+  Loading books, or an error occurred...
+</p>
 }

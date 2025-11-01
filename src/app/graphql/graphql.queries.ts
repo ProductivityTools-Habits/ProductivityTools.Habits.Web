@@ -5,6 +5,7 @@ query getHabit($id: Int!) {
   getHabit(id: $id)  {
     id
     name
+    shortName
   }
 }`
 
@@ -13,6 +14,7 @@ query {
   getHabits {
     id
     name
+    shortName
   }
 }
 `
@@ -35,7 +37,8 @@ query {
     status,
     habit{
       id,
-      name
+      name,
+      shortName
     }
   }
 }

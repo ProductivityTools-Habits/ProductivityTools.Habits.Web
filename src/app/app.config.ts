@@ -22,7 +22,7 @@ export const appConfig: ApplicationConfig = {
       const authLink = setContext(async (_, { headers }) => {
         // Get the authentication token from Firebase
         const token = await authService.getIdToken();
-        
+
         // Return the headers with authorization token
         if (token) {
           return {
@@ -32,15 +32,15 @@ export const appConfig: ApplicationConfig = {
             }
           };
         }
-        
+
         // Return headers without token if user not authenticated
         return { headers };
       });
 
       // Create HTTP link
       const http = httpLink.create({
-        //uri: 'http://localhost:8080/graphql',
-        uri: 'https://habit.productivitytools.top/graphql'
+        uri: 'http://localhost:8080/graphql',
+        //uri: 'https://habit.productivitytools.top/graphql'
       });
 
       return {

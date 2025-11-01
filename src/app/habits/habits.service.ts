@@ -24,19 +24,20 @@ export class HabitsService {
     return this.habitQueryRef.valueChanges.pipe(map(result => result.data.getHabits));
   }
 
-  getHabit(id:number):Observable<Habit>{
-    return this.apollo.query<{getHabit: Habit}>({
+  getHabit(id: number): Observable<Habit> {
+    return this.apollo.query<{ getHabit: Habit }>({
       query: GET_HABIT,
-      variables: {id}
+      variables: { id }
     }).pipe(map(result => result.data.getHabit))
-    
+
   }
 
   saveHabit(habit: Habit): Observable<any> {
 
     const habitInput = {
       id: habit.id,
-      name: habit.name
+      name: habit.name,
+      shortName: habit.shortName
     };
 
     return this.apollo.mutate({
@@ -46,11 +47,11 @@ export class HabitsService {
     });
   }
 
-  deleteHabit(habitId: Number):Observable<any>{
+  deleteHabit(habitId: Number): Observable<any> {
     console.log("deleting habit service", habitId)
     return this.apollo.mutate({
-      mutation:DELETE_HABIT,
-      variables: {id: habitId},
+      mutation: DELETE_HABIT,
+      variables: { id: habitId },
       refetchQueries: [{ query: GET_HABITS }]
     });
   }
