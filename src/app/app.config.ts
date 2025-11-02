@@ -39,8 +39,8 @@ export const appConfig: ApplicationConfig = {
 
       // Create HTTP link
       const http = httpLink.create({
-        uri: 'http://localhost:8080/graphql',
-        //uri: 'https://habit.productivitytools.top/graphql'
+        //uri: 'http://localhost:8080/graphql',
+        uri: 'https://habit.productivitytools.top/graphql'
       });
 
       return {
