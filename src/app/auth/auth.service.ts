@@ -1,5 +1,4 @@
-import { Injectable, inject, signal, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable, inject, signal } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import {
   Auth,
@@ -19,10 +18,8 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private router = inject(Router);
-  private platformId = inject(PLATFORM_ID);
   private auth: Auth;
   private googleProvider: GoogleAuthProvider;
-  private readonly STORAGE_KEY = 'user_session';
 
   // Signal to track current user
   currentUser = signal<User | null>(null);
@@ -34,62 +31,12 @@ export class AuthService {
     this.auth = getAuth(app);
     this.googleProvider = new GoogleAuthProvider();
 
-    // Try to restore session from localStorage immediately
-    this.restoreSession();
-
     // Listen to auth state changes
     onAuthStateChanged(this.auth, (user) => {
-      if (user) {
-        this.saveSession(user);
-        this.currentUser.set(user);
-        this.isAuthenticated.set(true);
-      } else {
-        this.clearSession();
-        this.currentUser.set(null);
-        this.isAuthenticated.set(false);
-      }
+      this.currentUser.set(user);
+      this.isAuthenticated.set(!!user);
       console.log('Auth state changed:', user ? user.email : 'No user');
     });
-  }
-
-  private get isBrowser(): boolean {
-    return isPlatformBrowser(this.platformId);
-  }
-
-  private saveSession(user: User): void {
-    if (this.isBrowser) {
-      // Store minimal user info needed to satisfy hydration
-      const userInfo = {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL
-      };
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(userInfo));
-    }
-  }
-
-  private clearSession(): void {
-    if (this.isBrowser) {
-      localStorage.removeItem(this.STORAGE_KEY);
-    }
-  }
-
-  private restoreSession(): void {
-    if (this.isBrowser) {
-      const storedUser = localStorage.getItem(this.STORAGE_KEY);
-      if (storedUser) {
-        try {
-          const user = JSON.parse(storedUser) as User;
-          // Optimistically set the user. Firebase will verify later.
-          this.currentUser.set(user);
-          this.isAuthenticated.set(true);
-        } catch (e) {
-          console.error('Error parsing stored session', e);
-          this.clearSession();
-        }
-      }
-    }
   }
 
   // Sign in with Google
@@ -108,7 +55,6 @@ export class AuthService {
   async signOut(): Promise<void> {
     try {
       await signOut(this.auth);
-      this.clearSession(); // Explicitly clear local storage
       console.log('Successfully signed out');
       this.router.navigate(['/login']);
     } catch (error: any) {
@@ -142,3 +88,4 @@ export class AuthService {
     }
   }
 }
+
