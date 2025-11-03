@@ -37,10 +37,17 @@ export const appConfig: ApplicationConfig = {
         return { headers };
       });
 
+      // Determine URI based on environment
+      let uri = 'https://habit.productivitytools.top/graphql';
+
+      // Check if running on localhost
+      if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+        uri = 'http://localhost:8080/graphql';
+      }
+
       // Create HTTP link
       const http = httpLink.create({
-        //uri: 'http://localhost:8080/graphql',
-        uri: 'https://habit.productivitytools.top/graphql'
+        uri: uri
       });
 
       return {
