@@ -13,7 +13,7 @@
 
   @for (item of executionView; track item.id){
   <tr>
-    <td><b>{{item.name}}</b></td>
+    <td><b>{{item.shortName =="" ? item.name : item.shortName}}</b></td>
     <td>
 
       @if(item.executionStatus == 'Completed') {
