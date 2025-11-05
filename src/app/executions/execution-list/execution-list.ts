@@ -48,7 +48,11 @@ export class ExecutionList implements OnInit, OnDestroy {
           return habits.map(habit => {
             console.log(executions);
             const execution = executions.find(execution => habit.id === execution.habit.id && this.formatDateToYYYYMMDD(new Date(execution.date)) === this.date);
-            return { ...habit, executionId: execution?.id, executionStatus: execution?.status };
+            return {
+              ...habit,
+              executionId: execution?.id,
+              executionStatus: execution?.status
+            };
           });
         })
       ).subscribe(data => {
@@ -86,16 +90,16 @@ export class ExecutionList implements OnInit, OnDestroy {
 
   public previousDate() {
     debugger;
-    var selectedDate=this.getDateinDateFormat();
-    this.date = this.formatDateToYYYYMMDD(new Date(selectedDate.setDate(selectedDate.getDate()-1)));
+    var selectedDate = this.getDateinDateFormat();
+    this.date = this.formatDateToYYYYMMDD(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
     this.loadData();
     console.log("Date:", this.date)
   }
 
   public nextDate() {
-    var selectedDate=this.getDateinDateFormat();
-     this.date = this.formatDateToYYYYMMDD(new Date(selectedDate.setDate(selectedDate.getDate()+1)));
-     this.loadData();
+    var selectedDate = this.getDateinDateFormat();
+    this.date = this.formatDateToYYYYMMDD(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
+    this.loadData();
     console.log("Date:", this.date)
 
   }
