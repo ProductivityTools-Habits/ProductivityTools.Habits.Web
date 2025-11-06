@@ -20,7 +20,6 @@ export class AuthService {
   private router = inject(Router);
   private auth: Auth;
   private googleProvider: GoogleAuthProvider;
-  private readonly STORAGE_KEY = 'user_session';
 
   // Signal to track current user
   currentUser = signal<User | null>(null);
@@ -45,8 +44,6 @@ export class AuthService {
     try {
       const result = await signInWithPopup(this.auth, this.googleProvider);
       console.log('Successfully signed in:', result.user.email);
-      debugger;
-      this.saveSession(result.user);
       this.router.navigate(['/execution']);
     } catch (error: any) {
       console.error('Error signing in:', error);
@@ -66,10 +63,6 @@ export class AuthService {
     }
   }
 
-  private get isBrowser(): boolean {
-    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
-  }
-
   // Get current user
   getCurrentUser(): User | null {
     return this.currentUser();
@@ -77,52 +70,7 @@ export class AuthService {
 
   // Check if user is authenticated
   isLoggedIn(): boolean {
-    debugger;
-    const user = this.auth.currentUser;
-    if (user) {
-      return true;
-    }
-
-    // Check local storage
-    this.restoreSession();
     return this.isAuthenticated();
-  }
-
-  private async saveSession(user: User): Promise<void> {
-    if (!this.isBrowser) return;
-
-    // Store minimal user info needed to satisfy hydration
-    const token = await getIdToken(user);
-    const userInfo = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      token: token
-    };
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(userInfo));
-  }
-
-  private restoreSession(): void {
-    if (!this.isBrowser) return;
-
-    const storedUser = localStorage.getItem(this.STORAGE_KEY);
-    if (storedUser) {
-      try {
-        const userInfo = JSON.parse(storedUser);
-        // Optimistically set the user. Firebase will verify later.
-        // We can't cast directly to User as it has methods, but we can stick it in the signal for minimal checks
-        this.isAuthenticated.set(true);
-      } catch (e) {
-        console.error('Error parsing stored session', e);
-        this.clearSession();
-      }
-    }
-  }
-
-  private clearSession(): void {
-    if (!this.isBrowser) return;
-    localStorage.removeItem(this.STORAGE_KEY);
   }
 
   // Get Firebase ID token for API authentication
@@ -132,13 +80,6 @@ export class AuthService {
       if (user) {
         const token = await getIdToken(user);
         return token;
-      } else if (this.isBrowser) {
-        // Try to get token from local storage
-        const storedUser = localStorage.getItem(this.STORAGE_KEY);
-        if (storedUser) {
-          const userInfo = JSON.parse(storedUser);
-          return userInfo.token;
-        }
       }
       return null;
     } catch (error) {
