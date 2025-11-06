@@ -42,7 +42,7 @@ export const appConfig: ApplicationConfig = {
 
       // Check if running on localhost
       if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-        uri = 'http://localhost:8080/graphql';
+        //uri = 'http://localhost:8080/graphql';
       }
 
       // Create HTTP link
