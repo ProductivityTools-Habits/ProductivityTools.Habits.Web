@@ -5,7 +5,8 @@
         <tr>
             <th>Date</th>
             @for (habit of habits; track habit.id) {
-            <th class="vertical-header">{{habit.shortName || habit.shortName =="" ? habit.name : habit.shortName}}</th>
+            <th class="vertical-header">{{habit.shortName =="" || habit.shortName==undefined ?
+                habit.name : habit.shortName}}</th>
             }
         </tr>
     </thead>

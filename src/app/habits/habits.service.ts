@@ -37,7 +37,7 @@ export class HabitsService {
     const habitInput = {
       id: habit.id,
       name: habit.name,
-      shortName: habit.shortName
+      shortName: habit.shortName || ''
     };
 
     return this.apollo.mutate({
