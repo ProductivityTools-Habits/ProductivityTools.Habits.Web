@@ -21,3 +21,5 @@ ng add apollo-angular
  npm install -g firebase-tools
  firebase init
  ```
+
+ rebuild
