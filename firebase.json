@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site":"pt-habits",
     "public": "dist/ProductivityTools.Habits.Web/browser",
     "ignore": [
       "firebase.json",
