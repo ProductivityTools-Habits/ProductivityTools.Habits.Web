@@ -41,6 +41,7 @@ export class ExecutionHistory implements OnInit, OnDestroy {
 
     this.subscription.add(
       combineLatest([habits$, executions$]).subscribe(data => {
+        this.historyView = [];
         data[1].forEach(execution => {
           const day = this.historyView.find(item => item.date === execution.date);
           if (day) {
@@ -50,8 +51,10 @@ export class ExecutionHistory implements OnInit, OnDestroy {
           }
         })
         console.log("executions history data:", data);
+        console.log("executions history view:", this.historyView);
+
       })
+
     )
-    console.log("executions history view:", this.historyView);
   }
 }
