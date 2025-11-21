@@ -13,6 +13,7 @@ import { combineLatest, Subscription } from 'rxjs';
 })
 export class ExecutionHistory implements OnInit, OnDestroy {
 
+  historyView: any[] = [];
   private subscription: Subscription = new Subscription();
 
   constructor(private executionService: ExecutionService, private habitsService: HabitsService) {
@@ -33,13 +34,24 @@ export class ExecutionHistory implements OnInit, OnDestroy {
     }
     this.subscription = new Subscription();
 
-    const executions$=this.executionService.getExecutionsObservable();
-    const habits$=this.habitsService.getHabitsObservable();
+    const executions$ = this.executionService.getExecutionsObservable();
+    const habits$ = this.habitsService.getHabitsObservable();
+
+
 
     this.subscription.add(
-      combineLatest([habits$,executions$]).subscribe(data=>{
-        console.log("executions history data:",data);
+      combineLatest([habits$, executions$]).subscribe(data => {
+        data[1].forEach(execution => {
+          const day = this.historyView.find(item => item.date === execution.date);
+          if (day) {
+            day.executions.push(execution);
+          } else {
+            this.historyView.push({ date: execution.date, executions: [execution] });
+          }
+        })
+        console.log("executions history data:", data);
       })
     )
+    console.log("executions history view:", this.historyView);
   }
 }
