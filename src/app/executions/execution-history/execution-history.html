@@ -1,10 +1,22 @@
 <p>execution-history works!</p>
 
 <table>
-    @for (item of historyView; track item.date) {
-    <tr>
-        <td>{{item.date}}</td>
-    </tr>
-
-    }
+    <thead>
+        <tr>
+            <th>Date</th>
+            @for (habit of habits; track habit.id) {
+            <th>{{habit.name}}</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (item of historyView; track item.date) {
+        <tr>
+            <td>{{item.date}}</td>
+            @for (habit of habits; track habit.id) {
+            <td>{{getExecutionStatus(item.executions, habit.id)}}</td>
+            }
+        </tr>
+        }
+    </tbody>
 </table>
