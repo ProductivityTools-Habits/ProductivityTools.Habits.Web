@@ -3,9 +3,11 @@ import { ExecutionService } from '../executions.service';
 import { HabitsService } from '../../habits/habits.service';
 import { combineLatest, Subscription } from 'rxjs';
 
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-execution-history',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './execution-history.html',
   styleUrl: './execution-history.css'
 })

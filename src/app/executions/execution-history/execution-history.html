@@ -5,16 +5,20 @@
         <tr>
             <th>Date</th>
             @for (habit of habits; track habit.id) {
-            <th>{{habit.name}}</th>
+            <th class="vertical-header">{{habit.name}}</th>
             }
         </tr>
     </thead>
     <tbody>
         @for (item of historyView; track item.date) {
         <tr>
-            <td>{{item.date}}</td>
+            <td>{{item.date | date:'shortDate'}}</td>
             @for (habit of habits; track habit.id) {
-            <td>{{getExecutionStatus(item.executions, habit.id)}}</td>
+            <td>
+                <div class="status-indicator status-{{getExecutionStatus(item.executions, habit.id)}}"
+                    title="{{getExecutionStatus(item.executions, habit.id)}}">
+                </div>
+            </td>
             }
         </tr>
         }

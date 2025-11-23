@@ -1,0 +1,26 @@
+th.vertical-header {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    height: 150px;
+    padding: 5px;
+}
+
+.status-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-Completed {
+    background-color: green;
+}
+
+.status-Failed {
+    background-color: red;
+}
+
+.status-Skipped {
+    background-color: blue;
+}
