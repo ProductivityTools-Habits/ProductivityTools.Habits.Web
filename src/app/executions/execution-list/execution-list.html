@@ -3,17 +3,26 @@
 <p>
   <input type="button" value="<<" (click)="previousDate()" />
   <input type="date" [(ngModel)]="date" (ngModelChange)="loadData()" />
-  <input type="button" value=">>" (click)="nextDate()" /></p>
+  <input type="button" value=">>" (click)="nextDate()" />
+</p>
 <p>date:{{date}}</p>
 
 @if (executionView && executionView.length>0) { @for (item of executionView;
 track item.id){
 <p>
-  <b>{{item.name}}</b>: <span class="{{item.executionStatus}}">{{item.executionStatus}}</span><br/>
+  <b>{{item.name}}</b>:
+
+  @if(item.executionStatus == 'Completed') {
+  <!-- <span class="{{item.executionStatus}}">{{item.executionStatus}}</span> -->
+  <input class="{{item.executionStatus}}" type="button" value="{{item.executionStatus}}" (click)="onReset(item.id)" />
+  }
+  @else {
+  <span class="{{item.executionStatus}}">{{item.executionStatus}}</span>
   <input type="button" value="Complete" (click)="onComplete(item.id)" />
   <input type="button" value="Skip" (click)="onSkip(item.id)" />
-  <input type="button" value="Reset" (click)="onReset(item.id)" />
   <input type="button" value="Failed" (click)="onFailed(item.id)" />
+  }
+
 </p>
 }
 <p>executions returned</p>
@@ -22,9 +31,10 @@ track item.id){
 }
 
 
-<hr/>
+<hr />
 <p>
-  <input type="button" value="{{showAdvancedPanel ? 'Hide' : 'Show'}} Advanced Panel" (click)="showAdvancedPanel = !showAdvancedPanel" />
+  <input type="button" value="{{showAdvancedPanel ? 'Hide' : 'Show'}} Advanced Panel"
+    (click)="showAdvancedPanel = !showAdvancedPanel" />
 </p>
 
 @if (showAdvancedPanel) {

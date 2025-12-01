@@ -1,12 +1,12 @@
-span.Completed{
+input.Completed,
+span.Completed {
     color: green;
 }
 
-span.Skipped{
+span.Skipped {
     color: blue;
 }
 
-span.Failed{
+span.Failed {
     color: red;
 }
-
