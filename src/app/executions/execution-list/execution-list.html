@@ -7,24 +7,30 @@
 </p>
 <p>date:{{date}}</p>
 
-@if (executionView && executionView.length>0) { @for (item of executionView;
-track item.id){
-<p>
-  <b>{{item.name}}</b>:
+@if (executionView && executionView.length>0) {
+<table>
 
-  @if(item.executionStatus == 'Completed') {
-  <!-- <span class="{{item.executionStatus}}">{{item.executionStatus}}</span> -->
-  <input class="{{item.executionStatus}}" type="button" value="{{item.executionStatus}}" (click)="onReset(item.id)" />
-  }
-  @else {
-  <span class="{{item.executionStatus}}">{{item.executionStatus}}</span>
-  <input type="button" value="Complete" (click)="onComplete(item.id)" />
-  <input type="button" value="Skip" (click)="onSkip(item.id)" />
-  <input type="button" value="Failed" (click)="onFailed(item.id)" />
-  }
 
-</p>
-}
+  @for (item of executionView; track item.id){
+  <tr>
+    <td><b>{{item.name}}</b></td>
+    <td>
+
+      @if(item.executionStatus == 'Completed') {
+      <!-- <span class="{{item.executionStatus}}">{{item.executionStatus}}</span> -->
+      <input class="{{item.executionStatus}}" type="button" value="{{item.executionStatus}}"
+        (click)="onReset(item.id)" />
+      }
+      @else {
+      <span class="{{item.executionStatus}}">{{item.executionStatus}}</span>
+      <input type="button" value="Complete" (click)="onComplete(item.id)" />
+      <input type="button" value="Skip" (click)="onSkip(item.id)" />
+      <input type="button" value="Failed" (click)="onFailed(item.id)" />
+      }
+
+  </tr>
+  }
+</table>
 <p>executions returned</p>
 } @else {
 <p>no executions returned</p>
