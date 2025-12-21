@@ -27,18 +27,19 @@
       </div>
     </td>
     <td>
-
-      @if(item.executionStatus == 'Completed') {
-      <!-- <span class="{{item.executionStatus}}">{{item.executionStatus}}</span> -->
-      <input class="{{item.executionStatus}}" type="button" value="{{item.executionStatus}}"
-        (click)="onReset(item.id)" />
-      }
-      @else {
+      @if(item.executionStatus == undefined || item.executionStatus == null || item.executionStatus =="Waiting" ) {
       <span class="{{item.executionStatus}}">{{item.executionStatus}}</span>
       <input type="button" value="Complete" (click)="onComplete(item.id)" />
       <input type="button" value="Skip" (click)="onSkip(item.id)" />
       <input type="button" value="Failed" (click)="onFailed(item.id)" />
       }
+      @else {
+      <input class="{{item.executionStatus}}" type="button" value="{{item.executionStatus}}"
+        (click)="onReset(item.id)" />
+      }
+
+
+
 
   </tr>
   }
