@@ -1,10 +1,10 @@
 // Firebase configuration
-export const firebaseConfig = {
-  apiKey: "AIzaSyB94zHv53jRwaHKApa6f_sZCrpe62yH8Ro",
-  authDomain: "ptauthumbrella.firebaseapp.com",
-  projectId: "ptauthumbrella",
-  storageBucket: "ptauthumbrella.firebasestorage.app",
-  messagingSenderId: "64395706392",
-  appId: "1:64395706392:web:3e4f08f9b330191278836d"
+const firebaseConfig = {
+  apiKey: "AIzaSyBxY4oT4SZd5r-nZiM1eFFnUCcC3UxgYr4",
+  authDomain: "ptprojectsweb.firebaseapp.com",
+  projectId: "ptprojectsweb",
+  storageBucket: "ptprojectsweb.firebasestorage.app",
+  messagingSenderId: "93484780890",
+  appId: "1:93484780890:web:2ad712b2601cf3e49ff763"
 };
 
