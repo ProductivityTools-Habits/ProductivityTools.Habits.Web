@@ -1,11 +1,11 @@
 <p>execution-list works!</p>
 
-<p>
-  <input type="button" value="<<" (click)="previousDate()" />
-  <input type="date" [(ngModel)]="date" (ngModelChange)="loadData()" />
-  <input type="button" value=">>" (click)="nextDate()" />
-  <input type="button" value="Today" (click)="today()" />
-</p>
+<div class="date-controls">
+  <input class="nav-btn" type="button" value="<<" (click)="previousDate()" />
+  <input class="date-input" type="date" [(ngModel)]="date" (ngModelChange)="loadData()" />
+  <input class="nav-btn" type="button" value=">>" (click)="nextDate()" />
+  <input class="action-btn today-btn" type="button" value="Today" (click)="today()" />
+</div>
 <p>date:{{date}}</p>
 
 @if (executionView && executionView.length>0) {
@@ -28,16 +28,18 @@
       </div>
     </td>
     <td>
-      @if(item.executionStatus == undefined || item.executionStatus == null || item.executionStatus =="Waiting" ) {
-      <span class="{{item.executionStatus}}">{{item.executionStatus}}</span>
-      <input type="button" value="Complete" (click)="onComplete(item.id)" />
-      <input type="button" value="Skip" (click)="onSkip(item.id)" />
-      <input type="button" value="Failed" (click)="onFailed(item.id)" />
-      }
-      @else {
-      <input class="{{item.executionStatus}}" type="button" value="{{item.executionStatus}}"
-        (click)="onReset(item.id)" />
-      }
+      <div class="action-buttons-group">
+        @if(item.executionStatus == undefined || item.executionStatus == null || item.executionStatus =="Waiting" ) {
+        <span class="{{item.executionStatus}}">{{item.executionStatus}}</span>
+        <input class="action-btn complete-btn" type="button" value="Complete" (click)="onComplete(item.id)" />
+        <input class="action-btn skip-btn" type="button" value="Skip" (click)="onSkip(item.id)" />
+        <input class="action-btn failed-btn" type="button" value="Failed" (click)="onFailed(item.id)" />
+        }
+        @else {
+        <input class="action-btn reset-btn {{item.executionStatus}}" type="button" value="{{item.executionStatus}}"
+          (click)="onReset(item.id)" />
+        }
+      </div>
 
 
 
