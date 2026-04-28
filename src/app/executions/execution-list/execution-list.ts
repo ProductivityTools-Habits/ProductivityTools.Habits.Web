@@ -104,6 +104,12 @@ export class ExecutionList implements OnInit, OnDestroy {
 
   }
 
+  public today() {
+    this.date = this.formatDateToYYYYMMDD(new Date());
+    this.loadData();
+    console.log("Date:", this.date)
+  }
+
   public onComplete(id: number): void {
     var r = this.executionService.onComplete(Number(id), this.date).subscribe();
     console.log(id);

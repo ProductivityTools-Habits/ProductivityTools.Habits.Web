@@ -4,6 +4,7 @@
   <input type="button" value="<<" (click)="previousDate()" />
   <input type="date" [(ngModel)]="date" (ngModelChange)="loadData()" />
   <input type="button" value=">>" (click)="nextDate()" />
+  <input type="button" value="Today" (click)="today()" />
 </p>
 <p>date:{{date}}</p>
 

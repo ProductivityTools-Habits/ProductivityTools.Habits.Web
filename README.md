@@ -1,3 +1,9 @@
+## Development on windows
+
+```
+npm run start
+```
+
 GraphQL
 [tutorial](https://signoz.io/blog/angular-graphql/)
 ```
