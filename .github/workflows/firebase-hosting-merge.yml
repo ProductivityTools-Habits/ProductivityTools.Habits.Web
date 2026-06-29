@@ -1,4 +1,4 @@
-name: Deploy to Firebase Hosting on PR
+name: Deploy to Firebase Hosting on push
 on:
   push:
     branches:
@@ -9,7 +9,6 @@ permissions:
   pull-requests: write
 jobs:
   build_and_deploy:
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
       - name: Inspect Service Account Email
@@ -30,3 +29,4 @@ jobs:
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           projectId: ptprojectsweb
+          channelId: live # Use 'live' to deploy directly to production on push to main
