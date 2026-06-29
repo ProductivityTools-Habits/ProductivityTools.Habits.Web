@@ -1,43 +1,60 @@
 input.Completed,
 span.Completed {
-    color: green;
+    color: #2563eb;
 }
 
 span.Skipped {
-    color: blue;
+    color: #64748b;
 }
 
 span.Failed {
-    color: red;
+    color: #334155;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+tr {
+    border-bottom: 1px solid #eaeaea;
+}
+
+td {
+    padding: 12px 8px;
+    vertical-align: middle;
 }
 
 /* Date Controls wrapper */
 .date-controls {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: 6px;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 500px;
 }
 
 /* Action Buttons Wrapper */
 .action-buttons-group {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
     align-items: center;
 }
 
 /* Common button styles */
 .nav-btn, .action-btn {
-    padding: 10px 16px;
+    padding: 8px 14px;
     border: none;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     font-weight: 500;
     transition: background-color 0.2s ease, transform 0.1s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    white-space: nowrap;
 }
 
 .nav-btn:active, .action-btn:active {
@@ -45,61 +62,106 @@ span.Failed {
 }
 
 .date-input {
-    padding: 10px 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #e2e8f0;
     border-radius: 6px;
+    flex: 1;
+    min-width: 0;
+    color: #334155;
 }
 
-/* Specific button colors */
+/* Specific button colors (Light Blue & Gray Theme with black text) */
 .nav-btn {
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: #f1f5f9;
+    color: black;
 }
-.nav-btn:hover { background-color: #e4e4e4; }
+.nav-btn:hover { background-color: #e2e8f0; }
 
 .today-btn {
-    background-color: #007bff;
-    color: white;
+    background-color: #93c5fd; /* Light blue */
+    color: black;
 }
-.today-btn:hover { background-color: #0069d9; }
+.today-btn:hover { background-color: #60a5fa; }
 
 .complete-btn {
-    background-color: #28a745;
-    color: white;
+    background-color: #bfdbfe; /* Lighter blue */
+    color: black;
 }
-.complete-btn:hover { background-color: #218838; }
+.complete-btn:hover { background-color: #93c5fd; }
 
 .skip-btn {
-    background-color: #ffc107;
-    color: #212529;
+    background-color: #cbd5e1; /* Light gray */
+    color: black;
 }
-.skip-btn:hover { background-color: #e0a800; }
+.skip-btn:hover { background-color: #94a3b8; }
 
 .failed-btn {
-    background-color: #dc3545;
-    color: white;
+    background-color: #94a3b8; /* Medium-light gray */
+    color: black;
 }
-.failed-btn:hover { background-color: #c82333; }
+.failed-btn:hover { background-color: #64748b; }
 
 .reset-btn {
-    background-color: #6c757d;
-    color: white;
+    border: 1px solid #cbd5e1;
 }
-.reset-btn:hover { background-color: #5a6268; }
+
+.reset-btn.Completed {
+    background-color: #eff6ff;
+    color: black;
+    border-color: #bfdbfe;
+}
+.reset-btn.Completed:hover {
+    background-color: #dbeafe;
+}
+
+.reset-btn.Skipped {
+    background-color: #f8fafc;
+    color: black;
+    border-color: #e2e8f0;
+}
+.reset-btn.Skipped:hover {
+    background-color: #f1f5f9;
+}
+
+.reset-btn.Failed {
+    background-color: #f1f5f9;
+    color: black;
+    border-color: #cbd5e1;
+}
+.reset-btn.Failed:hover {
+    background-color: #e2e8f0;
+}
 
 /* Mobile optimization */
 @media (max-width: 600px) {
     .nav-btn, .action-btn, .date-input {
-        padding: 12px 20px;
-        font-size: 18px; /* Larger touch targets for mobile */
+        padding: 10px 14px;
+        font-size: 15px;
     }
 
-    .date-controls {
-        justify-content: center;
+    tr {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 0;
+    }
+
+    td {
+        display: block;
+        width: 100%;
+        padding: 4px 0;
     }
 
     .action-buttons-group {
-        margin-top: 5px;
+        display: flex;
+        width: 100%;
+        justify-content: flex-start;
+        gap: 6px;
+    }
+
+    .action-buttons-group .action-btn {
+        flex: 1;
+        text-align: center;
     }
 }
