@@ -11,10 +11,6 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Inspect Service Account Email
-        run: |
-          echo "The service account email is:"
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PTPROJECTSWEB }}' | jq -r '.client_email' | sed 's/./& /g'
       - uses: actions/checkout@v4
       - run: npm ci && npm run build
       
@@ -24,9 +20,6 @@ jobs:
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PTPROJECTSWEB }}
           
-      # 2. Deploy to Firebase
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          projectId: ptprojectsweb
-          channelId: live # Use 'live' to deploy directly to production on push to main
+      # 2. Deploy to Firebase using the CLI directly
+      - name: Deploy to Firebase Hosting
+        run: npx firebase-tools deploy --only hosting --project ptprojectsweb
