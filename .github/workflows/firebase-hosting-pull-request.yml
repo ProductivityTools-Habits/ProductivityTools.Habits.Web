@@ -12,10 +12,6 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
-      - name: Inspect Service Account Email
-        run: |
-          echo "The service account email is:"
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PTPROJECTSWEB }}' | jq -r '.client_email' | sed 's/./& /g'
       - uses: actions/checkout@v4
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
