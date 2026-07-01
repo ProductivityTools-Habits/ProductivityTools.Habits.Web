@@ -107,30 +107,30 @@ td {
 }
 
 .reset-btn.Completed {
-    background-color: #eff6ff;
-    color: black;
-    border-color: #bfdbfe;
+    background-color: #dcfce7;
+    color: #14532d;
+    border-color: #bbf7d0;
 }
 .reset-btn.Completed:hover {
-    background-color: #dbeafe;
+    background-color: #bbf7d0;
 }
 
 .reset-btn.Skipped {
-    background-color: #f8fafc;
-    color: black;
-    border-color: #e2e8f0;
+    background-color: #fef9c3;
+    color: #713f12;
+    border-color: #fef08a;
 }
 .reset-btn.Skipped:hover {
-    background-color: #f1f5f9;
+    background-color: #fef08a;
 }
 
 .reset-btn.Failed {
-    background-color: #f1f5f9;
-    color: black;
-    border-color: #cbd5e1;
+    background-color: #fee2e2;
+    color: #7f1d1d;
+    border-color: #fecaca;
 }
 .reset-btn.Failed:hover {
-    background-color: #e2e8f0;
+    background-color: #fecaca;
 }
 
 /* Mobile optimization */
