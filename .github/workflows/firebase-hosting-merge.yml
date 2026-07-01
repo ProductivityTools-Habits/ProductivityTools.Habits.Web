@@ -10,10 +10,10 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: hello
+      - name: Hello
         run: echo "Hello"
 
-      - name: clone repository
+      - name: Clone repository
         uses: actions/checkout@v4
 
       # 1. Force the runner to use Node.js 24.18.0
@@ -26,10 +26,10 @@ jobs:
       - name: Install specific firebase-tools version
         run: npm install -g firebase-tools@15.22.3
 
-      - name: build application
+      - name: Build application
         run: npm ci && npm run build
 
-      - name: deploy application
+      - name: Deploy application
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
