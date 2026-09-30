@@ -41,22 +41,49 @@ export class ExecutionHistory implements OnInit, OnDestroy {
     this.subscription.add(
       combineLatest([habits$, executions$]).subscribe(data => {
         this.habits = data[0];
-        this.historyView = [];
+
+        // Group executions by day (yyyy-MM-dd)
+        const byDay = new Map<string, any[]>();
         data[1].forEach(execution => {
-          const day = this.historyView.find(item => item.date === execution.date);
-          if (day) {
-            day.executions.push(execution);
+          const key = this.toDayKey(new Date(execution.date));
+          const list = byDay.get(key);
+          if (list) {
+            list.push(execution);
           } else {
-            this.historyView.push({ date: execution.date, executions: [execution] });
+            byDay.set(key, [execution]);
           }
-        })
-        // Sort history by date descending
-        this.historyView.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        });
+
+        // Build a continuous range of days from the oldest execution up to today,
+        // so days without any execution are still visible in the history.
+        this.historyView = [];
+        if (byDay.size > 0) {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          const sortedKeys = Array.from(byDay.keys()).sort();
+          const start = new Date(sortedKeys[0]);
+          start.setHours(0, 0, 0, 0);
+          const newest = new Date(sortedKeys[sortedKeys.length - 1]);
+          newest.setHours(0, 0, 0, 0);
+          const end = newest > today ? newest : today;
+
+          for (const d = new Date(end); d >= start; d.setDate(d.getDate() - 1)) {
+            const key = this.toDayKey(d);
+            this.historyView.push({ date: key, executions: byDay.get(key) ?? [] });
+          }
+        }
 
         console.log("executions history data:", data);
         console.log("executions history view:", this.historyView);
       })
     )
+  }
+
+  private toDayKey(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   getExecutionStatus(executions: any[], habitId: number): string {
