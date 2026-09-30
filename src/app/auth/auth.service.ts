@@ -25,11 +25,21 @@ export class AuthService {
   currentUser = signal<User | null>(null);
   isAuthenticated = signal<boolean>(false);
 
+  // Resolves once Firebase has restored the persisted session (if any),
+  // so guards don't redirect to /login before the auth state is known.
+  authReady: Promise<void>;
+
   constructor() {
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     this.auth = getAuth(app);
     this.googleProvider = new GoogleAuthProvider();
+
+    this.authReady = this.auth.authStateReady().then(() => {
+      const user = this.auth.currentUser;
+      this.currentUser.set(user);
+      this.isAuthenticated.set(!!user);
+    });
 
     // Listen to auth state changes
     onAuthStateChanged(this.auth, (user) => {
