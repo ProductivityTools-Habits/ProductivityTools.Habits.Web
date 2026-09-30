@@ -13,7 +13,7 @@
     <tbody>
         @for (item of historyView; track item.date) {
         <tr>
-            <td>{{item.date | date:'shortDate'}}</td>
+            <td>{{item.date | date:'yyyy.MM.dd'}}</td>
             @for (habit of habits; track habit.id) {
             <td>
                 <div class="status-indicator status-{{getExecutionStatus(item.executions, habit.id)}}"
