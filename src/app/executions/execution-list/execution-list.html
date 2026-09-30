@@ -2,11 +2,17 @@
 
 <div class="date-controls">
   <input class="nav-btn" type="button" value="<<" (click)="previousDate()" />
-  <input class="date-input" type="date" [(ngModel)]="date" (ngModelChange)="loadData()" />
+  <div class="date-field">
+    <input #dateText class="date-input" type="text" placeholder="yyyy.MM.dd" maxlength="10" [value]="displayDate"
+      (change)="onDisplayDateChange(dateText)" />
+    <input #datePicker class="date-picker-hidden" type="date" [value]="date" (change)="onPickerChange($any($event.target).value)"
+      tabindex="-1" aria-hidden="true" />
+    <button type="button" class="picker-btn" title="Choose date" (click)="openPicker(datePicker)">📅</button>
+  </div>
   <input class="nav-btn" type="button" value=">>" (click)="nextDate()" />
   <input class="action-btn today-btn" type="button" value="Today" (click)="today()" />
 </div>
-<p>date:{{date}}</p>
+<p>date:{{displayDate}}</p>
 
 @if (executionView && executionView.length>0) {
 <table>

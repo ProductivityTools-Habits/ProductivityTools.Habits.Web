@@ -124,6 +124,42 @@ export class ExecutionList implements OnInit, OnDestroy {
     console.log("Date:", this.date)
   }
 
+  /** Current date formatted for display as yyyy.MM.dd */
+  get displayDate(): string {
+    return this.date.replace(/-/g, '.');
+  }
+
+  /** Handle manual edit of the yyyy.MM.dd text field. */
+  public onDisplayDateChange(input: HTMLInputElement): void {
+    const match = /^(\d{4})[.\-/](\d{2})[.\-/](\d{2})$/.exec(input.value.trim());
+    const iso = match ? `${match[1]}-${match[2]}-${match[3]}` : '';
+    const parsed = match ? new Date(+match[1], +match[2] - 1, +match[3]) : new Date(NaN);
+    const valid = !!match && !isNaN(parsed.getTime()) && this.formatDateToYYYYMMDD(parsed) === iso;
+    if (!valid) {
+      // Invalid input: snap back to the previous valid value
+      input.value = this.displayDate;
+      return;
+    }
+    this.date = iso;
+    this.loadData();
+  }
+
+  /** Handle selection from the hidden native date picker (value is yyyy-MM-dd). */
+  public onPickerChange(value: string): void {
+    if (value) {
+      this.date = value;
+      this.loadData();
+    }
+  }
+
+  public openPicker(picker: HTMLInputElement): void {
+    if (typeof picker.showPicker === 'function') {
+      picker.showPicker();
+    } else {
+      picker.click();
+    }
+  }
+
   public onComplete(id: number): void {
     var r = this.executionService.onComplete(Number(id), this.date).subscribe();
     console.log(id);
