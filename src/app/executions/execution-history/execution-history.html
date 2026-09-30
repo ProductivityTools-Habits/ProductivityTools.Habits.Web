@@ -13,7 +13,9 @@
     <tbody>
         @for (item of historyView; track item.date) {
         <tr>
-            <td>{{item.date | date:'yyyy.MM.dd'}}</td>
+            <td>
+                <a [routerLink]="['/execution']" [queryParams]="{ date: item.date }">{{item.date | date:'yyyy.MM.dd'}}</a>
+            </td>
             @for (habit of habits; track habit.id) {
             <td>
                 <div class="status-indicator status-{{getExecutionStatus(item.executions, habit.id)}}"

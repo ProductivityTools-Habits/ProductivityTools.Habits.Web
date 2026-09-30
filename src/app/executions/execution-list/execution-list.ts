@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription, combineLatest, map } from 'rxjs';
 import { Execution } from '../../models/execution';
 import { ExecutionService } from '../executions.service';
@@ -17,16 +18,28 @@ export class ExecutionList implements OnInit, OnDestroy {
 
   executionView: any[] = []
   private subscription: Subscription = new Subscription();
+  private routeSubscription: Subscription = new Subscription();
   isNgModelChecked: boolean = false;
   date: string;
   showAdvancedPanel: boolean = false;
 
 
-  constructor(private executionService: ExecutionService, private habitsService: HabitsService) {
+  constructor(
+    private executionService: ExecutionService,
+    private habitsService: HabitsService,
+    private route: ActivatedRoute
+  ) {
     this.date = this.formatDateToYYYYMMDD(new Date());
   }
   ngOnInit(): void {
-    this.loadData();
+    // Allow opening a specific day via /execution?date=yyyy-MM-dd (e.g. from history)
+    this.routeSubscription = this.route.queryParamMap.subscribe(params => {
+      const dateParam = params.get('date');
+      if (dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam)) {
+        this.date = dateParam;
+      }
+      this.loadData();
+    });
   }
 
   loadData(): void {
@@ -63,6 +76,7 @@ export class ExecutionList implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.routeSubscription.unsubscribe();
   }
 
   private formatDateToYYYYMMDD(date: Date): string {

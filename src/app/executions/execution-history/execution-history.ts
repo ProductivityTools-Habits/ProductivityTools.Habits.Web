@@ -4,10 +4,11 @@ import { HabitsService } from '../../habits/habits.service';
 import { combineLatest, Subscription } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-execution-history',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './execution-history.html',
   styleUrl: './execution-history.css'
 })
