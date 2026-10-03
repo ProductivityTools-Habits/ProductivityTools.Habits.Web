@@ -63,6 +63,32 @@ mutation failExecution($id:Int!, $date: String!){
   failExecution(id:$id, date:$date)
 }`
 
+const GET_DAY_STATUSES = gql`
+query {
+  getDayStatuses {
+    id,
+    date,
+    status,
+    reason
+  }
+}
+`
+
+const SKIP_DAY = gql`
+mutation skipDay($date: String!, $reason: String!){
+  skipDay(date:$date, reason:$reason)
+}`
+
+const FAIL_DAY = gql`
+mutation failDay($date: String!, $reason: String){
+  failDay(date:$date, reason:$reason)
+}`
+
+const RESET_DAY = gql`
+mutation resetDay($date: String!){
+  resetDay(date:$date)
+}`
+
 const ADD_TODO = gql`
   mutation addTodo($name: String!, $description: String!) {
   addTodo(name: $name, description: $description) {
@@ -84,5 +110,6 @@ const DELETE_TODO = gql`
 export {
   GET_HABITS, GET_HABIT, SAVE_HABIT, DELETE_HABIT,
   GET_EXECUTIONS, COMPLETE_EXECUTION, SKIP_EXECUTION, RESET_EXECUTION, FAIL_EXECUTION,
+  GET_DAY_STATUSES, SKIP_DAY, FAIL_DAY, RESET_DAY,
   ADD_TODO, DELETE_TODO
 }

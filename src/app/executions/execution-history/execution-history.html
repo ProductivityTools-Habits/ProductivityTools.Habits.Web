@@ -16,12 +16,21 @@
             <td>
                 <a [routerLink]="['/execution']" [queryParams]="{ date: item.date }">{{item.date | date:'yyyy.MM.dd'}}</a>
             </td>
+            @if (item.dayStatus) {
+            <td class="day-status-cell {{item.dayStatus.status}}" [attr.colspan]="habits.length">
+                <span class="day-status-label">{{item.dayStatus.status}}</span>
+                @if (item.dayStatus.reason) {
+                <span class="day-status-reason">{{item.dayStatus.reason}}</span>
+                }
+            </td>
+            } @else {
             @for (habit of habits; track habit.id) {
             <td>
                 <div class="status-indicator status-{{getExecutionStatus(item.executions, habit.id)}}"
                     title="{{getExecutionStatus(item.executions, habit.id)}}">
                 </div>
             </td>
+            }
             }
         </tr>
         }

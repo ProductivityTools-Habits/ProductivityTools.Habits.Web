@@ -12,7 +12,39 @@
   <input class="nav-btn" type="button" value=">>" (click)="nextDate()" />
   <input class="action-btn today-btn" type="button" value="Today" (click)="today()" />
 </div>
+
+<div class="day-controls">
+  <input class="action-btn skip-btn" type="button" value="Skip day" (click)="openSkipDayDialog()" />
+  <input class="action-btn failed-btn" type="button" value="Fail day" (click)="onFailDay()" />
+</div>
+
+@if (dayStatus) {
+<div class="day-status-banner {{dayStatus.status}}">
+  <span class="day-status-label">Day {{dayStatus.status}}</span>
+  @if (dayStatus.reason) {
+  <span class="day-status-reason">— {{dayStatus.reason}}</span>
+  }
+  <input class="action-btn reset-btn day-status-reset" type="button" value="Reset day" (click)="onResetDay()" />
+</div>
+}
+
 <p>date:{{displayDate}}</p>
+
+@if (showSkipDayDialog) {
+<div class="modal-backdrop" (click)="cancelSkipDay()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>Skip day {{displayDate}}</h3>
+    <label for="skipDayReason">Reason</label>
+    <textarea id="skipDayReason" rows="3" [(ngModel)]="skipDayReason" placeholder="Why are you skipping this day?"
+      autofocus></textarea>
+    <div class="modal-actions">
+      <input class="action-btn" type="button" value="Cancel" (click)="cancelSkipDay()" />
+      <input class="action-btn skip-btn" type="button" value="Skip day" [disabled]="!skipDayReason.trim()"
+        (click)="confirmSkipDay()" />
+    </div>
+  </div>
+</div>
+}
 
 @if (executionView && executionView.length>0) {
 <table>

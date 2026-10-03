@@ -4,8 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription, combineLatest, map } from 'rxjs';
 import { Execution } from '../../models/execution';
 import { ExecutionService } from '../executions.service';
+import { DayStatusService } from '../day-status.service';
 import { HabitsService } from '../../habits/habits.service';
 import { Habit } from '../../models/habit';
+import { DayStatus } from '../../models/day-status';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -23,9 +25,17 @@ export class ExecutionList implements OnInit, OnDestroy {
   date: string;
   showAdvancedPanel: boolean = false;
 
+  /** Status of the whole selected day (Skipped/Failed), if any. */
+  dayStatus: DayStatus | null = null;
+
+  /** Skip-day reason dialog state */
+  showSkipDayDialog: boolean = false;
+  skipDayReason: string = '';
+
 
   constructor(
     private executionService: ExecutionService,
+    private dayStatusService: DayStatusService,
     private habitsService: HabitsService,
     private route: ActivatedRoute
   ) {
@@ -50,6 +60,7 @@ export class ExecutionList implements OnInit, OnDestroy {
 
     const executions$ = this.executionService.getExecutionsObservable();
     const habits$ = this.habitsService.getHabitsObservable();
+    const dayStatuses$ = this.dayStatusService.getDayStatusesObservable();
 
     this.subscription.add(
 
@@ -72,6 +83,42 @@ export class ExecutionList implements OnInit, OnDestroy {
         this.executionView = data;
       })
     )
+
+    this.subscription.add(
+      dayStatuses$.subscribe(statuses => {
+        this.dayStatus = (statuses ?? []).find(s => this.formatDateToYYYYMMDD(new Date(s.date)) === this.date) ?? null;
+      })
+    );
+  }
+
+  // ---- Whole-day status (Skip day / Fail day) ----
+
+  public openSkipDayDialog(): void {
+    this.skipDayReason = this.dayStatus?.status === 'Skipped' ? (this.dayStatus.reason ?? '') : '';
+    this.showSkipDayDialog = true;
+  }
+
+  public cancelSkipDay(): void {
+    this.showSkipDayDialog = false;
+    this.skipDayReason = '';
+  }
+
+  public confirmSkipDay(): void {
+    const reason = this.skipDayReason.trim();
+    if (!reason) {
+      return;
+    }
+    this.dayStatusService.skipDay(this.date, reason).subscribe();
+    this.showSkipDayDialog = false;
+    this.skipDayReason = '';
+  }
+
+  public onFailDay(): void {
+    this.dayStatusService.failDay(this.date).subscribe();
+  }
+
+  public onResetDay(): void {
+    this.dayStatusService.resetDay(this.date).subscribe();
   }
 
   ngOnDestroy(): void {

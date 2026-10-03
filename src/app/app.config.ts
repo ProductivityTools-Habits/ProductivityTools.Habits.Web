@@ -9,6 +9,7 @@ import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { AuthService } from './auth/auth.service';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,17 +38,9 @@ export const appConfig: ApplicationConfig = {
         return { headers };
       });
 
-      // Determine URI based on environment
-      let uri = 'https://habit.productivitytools.top/graphql';
-
-      // Check if running on localhost
-      if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-        //uri = 'http://localhost:8080/graphql';
-      }
-
-      // Create HTTP link
+      // Backend address comes from src/environments/* (switched via angular.json fileReplacements)
       const http = httpLink.create({
-        uri: uri
+        uri: environment.graphqlUri
       });
 
       return {

@@ -200,3 +200,79 @@ td {
         text-align: center;
     }
 }
+
+
+/* Whole-day controls (Skip day / Fail day) */
+.day-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.day-status-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 12px;
+    max-width: 500px;
+}
+.day-status-banner.Skipped {
+    background-color: #fef9c3;
+    border-color: #fef08a;
+    color: #713f12;
+}
+.day-status-banner.Failed {
+    background-color: #fee2e2;
+    border-color: #fecaca;
+    color: #7f1d1d;
+}
+.day-status-label { font-weight: 600; }
+.day-status-reason { flex: 1; white-space: pre-wrap; }
+.day-status-reset { margin-left: auto; background-color: #fff; }
+
+/* Modal dialog */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(15, 23, 42, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: min(420px, calc(100vw - 32px));
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.modal h3 { margin: 0 0 4px 0; }
+.modal label { font-size: 13px; color: #475569; }
+.modal textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-family: inherit;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    resize: vertical;
+}
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 6px;
+}
+.action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

@@ -24,3 +24,27 @@ th.vertical-header {
 .status-Skipped {
     background-color: blue;
 }
+
+
+/* Whole-day status row (replaces the per-habit dots) */
+.day-status-cell {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-align: left;
+}
+.day-status-cell.Skipped {
+    background-color: #fef9c3;
+    color: #713f12;
+}
+.day-status-cell.Failed {
+    background-color: #fee2e2;
+    color: #7f1d1d;
+}
+.day-status-cell .day-status-label {
+    font-weight: 600;
+    margin-right: 8px;
+}
+.day-status-cell .day-status-reason {
+    white-space: pre-wrap;
+}
