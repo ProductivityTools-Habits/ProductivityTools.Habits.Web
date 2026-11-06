@@ -11,6 +11,8 @@ th.vertical-header {
     height: 20px;
     border-radius: 50%;
     display: inline-block;
+    /* Default: no execution recorded for this habit on this day */
+    background-color: #d1d5db;
 }
 
 .status-Completed {
