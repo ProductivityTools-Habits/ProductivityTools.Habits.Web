@@ -105,4 +105,12 @@ export class ExecutionHistory implements OnInit, OnDestroy {
     const execution = executions.find(e => e.habit.id === habitId);
     return execution ? execution.status : '';
   }
+
+  /** True when the habit did not exist yet on the given day (yyyy-MM-dd). */
+  habitNotYetCreated(habit: any, dayKey: string): boolean {
+    if (!habit?.createdAt) {
+      return false;
+    }
+    return dayKey < this.toDayKey(new Date(habit.createdAt));
+  }
 }

@@ -26,9 +26,13 @@
             } @else {
             @for (habit of habits; track habit.id) {
             <td>
+                @if (habitNotYetCreated(habit, item.date)) {
+                <div class="status-indicator status-not-existing" title="Habit did not exist yet"></div>
+                } @else {
                 <div class="status-indicator status-{{getExecutionStatus(item.executions, habit.id)}}"
                     title="{{getExecutionStatus(item.executions, habit.id)}}">
                 </div>
+                }
             </td>
             }
             }

@@ -11,20 +11,31 @@ th.vertical-header {
     height: 20px;
     border-radius: 50%;
     display: inline-block;
-    /* Default: no execution recorded for this habit on this day */
-    background-color: #d1d5db;
+    box-sizing: border-box;
+    /* Default: habit existed but was not marked that day -> hollow ring */
+    background-color: transparent;
+    border: 2px solid #9ca3af;
 }
 
 .status-Completed {
     background-color: green;
+    border-color: green;
 }
 
 .status-Failed {
     background-color: red;
+    border-color: red;
 }
 
 .status-Skipped {
     background-color: blue;
+    border-color: blue;
+}
+
+/* Habit did not exist yet on that day: filled light-gray dot */
+.status-not-existing {
+    background-color: #e5e7eb;
+    border-color: #e5e7eb;
 }
 
 

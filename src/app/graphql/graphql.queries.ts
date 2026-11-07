@@ -6,6 +6,7 @@ query getHabit($id: Int!) {
     id
     name
     shortName
+    createdAt
   }
 }`
 
@@ -15,6 +16,7 @@ query {
     id
     name
     shortName
+    createdAt
   }
 }
 `
