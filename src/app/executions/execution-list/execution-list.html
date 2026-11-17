@@ -68,7 +68,6 @@
     <td>
       <div class="action-buttons-group">
         @if(item.executionStatus == undefined || item.executionStatus == null || item.executionStatus =="Waiting" ) {
-        <span class="{{item.executionStatus}}">{{item.executionStatus}}</span>
         <input class="action-btn complete-btn" type="button" value="Complete" (click)="onComplete(item.id)" />
         <input class="action-btn skip-btn" type="button" value="Skip" (click)="onSkip(item.id)" />
         <input class="action-btn failed-btn" type="button" value="Failed" (click)="onFailed(item.id)" />
