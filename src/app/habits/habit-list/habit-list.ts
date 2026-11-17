@@ -13,15 +13,20 @@ import { RouterModule } from '@angular/router';
   styleUrl: './habit-list.css'
 })
 export class HabitList {
-  // habits: Habit[];
-  habits$: Observable<Habit[]> | undefined;
+  habits$: Observable<Habit[]>;
 
   constructor(private habitsService: HabitsService) {
-    this.habits$ = this.habitsService.getHabitsObservable().pipe(map(habits => [...habits].sort((a, b) => a.id - b.id)));
-    console.log("habits1", this.habits$);
+    this.habits$ = this.habitsService.getHabitsObservable().pipe(
+      map(habits => [...habits].sort((a, b) => a.id - b.id))
+    );
   }
-  public onDelete(habitId: Number) {
-    var result=this.habitsService.deleteHabit(Number(habitId)).subscribe();
-    console.log("deleting habit")
+
+  public onDelete(habit: Habit): void {
+    if (!confirm(`Delete habit "${habit.name}"?`)) {
+      return;
+    }
+    this.habitsService.deleteHabit(Number(habit.id)).subscribe({
+      error: (error) => console.error('error deleting habit', error)
+    });
   }
 }

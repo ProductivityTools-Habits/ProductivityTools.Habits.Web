@@ -1,31 +1,36 @@
-<p>habit-list works!</p>
-<a routerLink="/habit-edit" routerLinkActive="active">Add habit</a>
+<div class="list-header">
+  <h2>Habits</h2>
+  <a class="action-btn primary-btn" routerLink="/habit-edit">+ Add habit</a>
+</div>
 
 @if (habits$ | async; as habits) {
+@if (habits.length > 0) {
 <table class="habit-list-table">
-  <tbody>
+  <thead>
     <tr>
-      <th>id</th>
-      <th>name</th>
-      <th>action</th>
+      <th>Name</th>
+      <th>Short name</th>
+      <th>Since</th>
+      <th class="actions-col"></th>
     </tr>
+  </thead>
+  <tbody>
     @for (habit of habits; track habit.id) {
     <tr>
-      <td>{{habit.id}}</td>
-      <td>{{habit.name}}</td>
-      <td>{{habit.shortName}}</td>
-      <td>
-        <a [routerLink]="['/habit-edit', habit.id]" routerLinkActive="active">Edit</a>
-      </td>
-      <td>
-        <button (click)="onDelete(habit.id)">Delete</button>
+      <td class="name-cell">{{habit.name}}</td>
+      <td class="muted">{{habit.shortName || '—'}}</td>
+      <td class="muted">{{habit.createdAt ? (habit.createdAt | date:'yyyy.MM.dd') : '—'}}</td>
+      <td class="actions-cell">
+        <a class="action-btn" [routerLink]="['/habit-edit', habit.id]">Edit</a>
+        <button type="button" class="action-btn danger-btn" (click)="onDelete(habit)">Delete</button>
       </td>
     </tr>
     }
   </tbody>
 </table>
 } @else {
-<p class="text-center text-gray-500 py-8">
-  Loading books, or an error occurred...
-</p>
+<p class="empty-state">No habits yet. Add your first one.</p>
+}
+} @else {
+<p class="empty-state">Loading habits…</p>
 }

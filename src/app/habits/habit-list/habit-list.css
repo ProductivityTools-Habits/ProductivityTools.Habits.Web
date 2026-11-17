@@ -1,0 +1,114 @@
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.list-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #1e293b;
+}
+
+.habit-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    max-width: 800px;
+}
+
+.habit-list-table th {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #64748b;
+    padding: 8px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.habit-list-table td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #eaeaea;
+    vertical-align: middle;
+}
+
+.habit-list-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.name-cell {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.muted {
+    color: #64748b;
+}
+
+.actions-col {
+    width: 1%;
+}
+
+.actions-cell {
+    white-space: nowrap;
+    text-align: right;
+}
+
+.actions-cell .action-btn + .action-btn {
+    margin-left: 8px;
+}
+
+.empty-state {
+    color: #64748b;
+    padding: 24px 0;
+}
+
+/* Buttons — same look as the execution screen */
+.action-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #f1f5f9;
+    color: black;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    line-height: 1.2;
+}
+.action-btn:hover { background-color: #e2e8f0; }
+.action-btn:active { transform: scale(0.96); }
+
+.primary-btn { background-color: #93c5fd; }
+.primary-btn:hover { background-color: #60a5fa; }
+
+.danger-btn { background-color: #fee2e2; color: #7f1d1d; }
+.danger-btn:hover { background-color: #fecaca; }
+
+@media (max-width: 600px) {
+    .habit-list-table thead {
+        display: none;
+    }
+    .habit-list-table tr {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid #eaeaea;
+    }
+    .habit-list-table td {
+        border: none;
+        padding: 0;
+    }
+    .name-cell { flex: 1 1 100%; }
+    .actions-cell {
+        flex: 1 1 100%;
+        text-align: left;
+        margin-top: 6px;
+    }
+}
