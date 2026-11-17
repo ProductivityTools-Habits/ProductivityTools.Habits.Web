@@ -44,6 +44,12 @@ td {
     align-items: center;
 }
 
+/* Uniform width so "Complete" and "Completed" (etc.) render as the same box */
+.action-buttons-group .action-btn {
+    min-width: 96px;
+    text-align: center;
+}
+
 /* Common button styles */
 .nav-btn, .action-btn {
     padding: 8px 14px;
