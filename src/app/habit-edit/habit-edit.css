@@ -1,0 +1,116 @@
+.habit-form-card {
+    max-width: 480px;
+    padding: 20px 24px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.habit-form-card h2 {
+    margin: 0 0 16px 0;
+    font-size: 20px;
+    color: #1e293b;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.hint {
+    font-weight: 400;
+    color: #94a3b8;
+}
+
+input[type="text"] {
+    padding: 9px 12px;
+    font-size: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    color: #334155;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.35);
+}
+
+input.ng-invalid.ng-touched {
+    border-color: #fca5a5;
+}
+
+.field-error,
+.form-error {
+    font-size: 13px;
+    color: #b91c1c;
+    margin: 0;
+}
+
+.form-error {
+    padding: 8px 12px;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+/* Buttons — same look as the execution screen */
+.action-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: #f1f5f9;
+    color: black;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.action-btn:hover { background-color: #e2e8f0; }
+.action-btn:active { transform: scale(0.96); }
+
+.primary-btn {
+    background-color: #93c5fd;
+}
+.primary-btn:hover { background-color: #60a5fa; }
+
+.action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+@media (max-width: 600px) {
+    .habit-form-card {
+        padding: 16px;
+    }
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+    .form-actions .action-btn {
+        width: 100%;
+    }
+}

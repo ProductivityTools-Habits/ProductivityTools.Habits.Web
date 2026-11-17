@@ -1,10 +1,31 @@
-<p>habit-edit works!</p>
+<div class="habit-form-card">
+  <h2>{{ isEdit ? 'Edit habit' : 'Add habit' }}</h2>
 
-<p>user provided value: {{habit.name}}</p>
-<p>habitId {{habit.id}}</p>
-<p>name: {{habit.name}}</p>
-input1: <input type="text" [(ngModel)]="habit.name" />
-input2: <input type="text" [(ngModel)]="habit.shortName" />
-<!-- <input2: <input type="text" [(ngModel)]="name" /> -->
+  <form (ngSubmit)="onSave()" #form="ngForm" novalidate>
+    <div class="form-field">
+      <label for="habitName">Name</label>
+      <input id="habitName" name="name" type="text" [(ngModel)]="habit.name" required maxlength="255"
+        placeholder="e.g. Morning stretching" autocomplete="off" #nameCtrl="ngModel" />
+      @if (nameCtrl.invalid && (nameCtrl.touched || form.submitted)) {
+      <span class="field-error">Name is required</span>
+      }
+    </div>
 
-<button (click)="onSave()">Submit</button>
+    <div class="form-field">
+      <label for="habitShortName">Short name <span class="hint">(shown in lists &amp; history)</span></label>
+      <input id="habitShortName" name="shortName" type="text" [(ngModel)]="habit.shortName" maxlength="255"
+        placeholder="e.g. Stretch" autocomplete="off" />
+    </div>
+
+    @if (errorMessage) {
+    <p class="form-error">{{ errorMessage }}</p>
+    }
+
+    <div class="form-actions">
+      <button type="button" class="action-btn" (click)="onCancel()" [disabled]="isSaving">Cancel</button>
+      <button type="submit" class="action-btn primary-btn" [disabled]="form.invalid || isSaving">
+        {{ isSaving ? 'Saving…' : 'Save' }}
+      </button>
+    </div>
+  </form>
+</div>
