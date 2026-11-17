@@ -137,8 +137,10 @@ td {
 }
 .failed-btn:hover { background-color: #64748b; }
 
+/* Same box size as the other action buttons: keep border: none from .action-btn,
+   the status colour alone marks the state. */
 .reset-btn {
-    border: 1px solid #cbd5e1;
+    border: none;
 }
 
 .reset-btn.Completed {
